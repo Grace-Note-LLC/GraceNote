@@ -1,4 +1,4 @@
-# \<insert project name> - QP Fall 2023 Team 6
+# \<insert project name> - QP Fall 2023 Team 6 Spec Sheet
 
 ## High-level Concept
 We will be making a serial device that is intended for use in musical applications. Similar to a Guitar Hero guitar, or an Osu tablet/pen, we are hoping to make a device that can bring a fun, handy new tool to the genre of rhythm games. The device will have 5 independent "pads", with one for each finger. When the user touches one of their fingers to a pad, it will send some serial message to the computer which can be interpreted as a button press. This could be applied directly to rhythm games such as _Osu! Mania_ or _Guitar Hero_, or it could be treated as if it were its own instrument - the choice is up to the user!
