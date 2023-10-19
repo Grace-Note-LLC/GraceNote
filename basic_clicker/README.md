@@ -2,7 +2,8 @@ Basic Clicker
 
 Use this device by pushing the button located in the bottom left. Pushing this button will cause the Arduino Nano 33IoT to write a '1' over the serial communication port with the host computer. 
 
-ADD PICTURE
+![IMG_2558](https://github.com/pink10000/qp-fall23/assets/121917210/7003af1e-9032-4ca5-8947-b61cbd8ef5f5)
+
 
 Device Components:
 
