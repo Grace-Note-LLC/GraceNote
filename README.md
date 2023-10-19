@@ -21,9 +21,31 @@ At the very least, we would like to make our device work as an "instrument" in m
 If possible, the software should make it so that the user workflow is as simple as the following:
 
 1. User plugs in device
+  - Needs connection verification screen -> settings
+  - settings w/ right/left handed mode
+  - should check verification every application boot up.
 2. User opens rhythm game (e.g. Osu! mania)
+  - cool load up screen w/ logo, could async device verification process from logo
 3. User selects some setting in the game to replace the default input with our device
+  - side bar menu with (ideally want something sleek, clean)
+    - side bar changes size on hover
+    - center page with display info, change according to side bar menu.
+    - about info
+    - game menu
 4. User is able to play the game normally, using the device as input instead of the default/intended instrument.
+  - need to design games (similar to osu! mania?)
+  - design tracks -> game engine required to be built (C/C++/Java?)
+    - https://github.com/XTXTMTXTX/SIMPLE-HTML5-Music-Game
+    - https://github.com/hndada/gosu
+    - https://github.com/stepmania/stepmania
+    - https://github.com/etternagame/etterna
+    - https://github.com/MichaelKim/Tap-Tap-Revolution
+    - https://github.com/DavidCWQ/VG101_RhythmGame
+    - https://github.com/cuong0993/flutter-rhythm (IMPORTANT)
+    - scratch is 10x harder (no clue how to do this + have a flutter wrapper over it)
+  - use as piano/keyboard -> read input stream, stateful home page -> play music from computer
+    - https://www.reddit.com/r/gamedev/comments/10cjgza/which_audio_library_c_would_you_recommend_for_a/
+  - need to upload variety of sounds (where to find?) -> menu to select instrument to play -> combine with game?
 5. Optionally, the user can open the interface app, which will show which pads are being pressed and potentially allow for configuration settings.
 
 #### Other implementation ideas:
