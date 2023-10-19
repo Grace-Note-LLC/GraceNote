@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_libserialport/flutter_libserialport.dart'; // Serial Port Lib
 
 void main() {
   runApp(const MyApp());
