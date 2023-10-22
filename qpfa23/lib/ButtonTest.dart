@@ -4,15 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_libserialport/flutter_libserialport.dart'; // Serial Port Lib
 
 class ButtonTest extends StatefulWidget {
-  const ButtonTest({super.key});
+  int presses = 0;
 
   @override
   State<ButtonTest> createState() => _ButtonTestState();
 }
 
 class _ButtonTestState extends State<ButtonTest> {
-  int presses = 0;
-
   List<String> availablePorts = SerialPort.availablePorts;
   SerialPort mainPort = SerialPort("COM9");
 
@@ -28,7 +26,7 @@ class _ButtonTestState extends State<ButtonTest> {
           port.openReadWrite();
           print(port.write(bytes));
           await reader.stream.listen((data) {
-            presses++;
+            widget.presses++;
             print('received : $data');
           });
         } on SerialPortError catch (_, err) {
@@ -57,7 +55,7 @@ class _ButtonTestState extends State<ButtonTest> {
       (data) {
         print(data);
         print(String.fromCharCodes(data));
-        presses++;
+        widget.presses++;
       },
     );
 
@@ -71,25 +69,38 @@ class _ButtonTestState extends State<ButtonTest> {
               child: Padding(
                 padding: const EdgeInsets.all(200),
                 child: Text(
-                  presses.toString(),
+                  widget.presses.toString(),
                   style: const TextStyle(fontSize: 40),
                 ),
               ),
             ),
-            Row(children: [
-              FloatingActionButton(
-                onPressed: readTest,
-                child: const Icon(Icons.refresh),
-              ),
-              FloatingActionButton(
-                onPressed: () {
-                  print("manual press");
-                  presses++;
-                  print(presses.toString());
-                },
-                child: const Icon(Icons.ac_unit),
-              )
-            ])
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                FloatingActionButton(
+                  onPressed: readTest,
+                  child: const Icon(Icons.refresh),
+                ),
+                FloatingActionButton(
+                  onPressed: () {
+                    setState(() {
+                      print("manual press");
+                      widget.presses++;
+                      print(widget.presses.toString());
+                    });
+                  },
+                  child: const Icon(Icons.ac_unit),
+                ),
+                FloatingActionButton(
+                  onPressed: () {
+                    setState(() {
+                      widget.presses = 0;
+                    });
+                  },
+                  child: const Icon(Icons.adobe_rounded),
+                )
+              ],
+            )
           ],
         ),
       ),
