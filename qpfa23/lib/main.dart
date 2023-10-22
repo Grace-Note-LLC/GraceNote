@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_libserialport/flutter_libserialport.dart'; // Serial Port Lib
+import 'package:flutter_libserialport/flutter_libserialport.dart';
+
+import 'ButtonTest.dart'; // Serial Port Lib
 
 void main() {
   runApp(const MyApp());
@@ -35,8 +37,58 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    Widget page;
+
+    switch (selectedIndex) {
+      case 0:
+        page = Placeholder();
+      case 1:
+        page = ButtonTest();
+        break;
+      case 2:
+        page = Placeholder();
+      default:
+        throw UnimplementedError("BOO");
+    }
+
+    return LayoutBuilder(builder: (context, constraints) {
+      return Scaffold(
+        body: Row(
+          children: [
+            SafeArea(
+              child: NavigationRail(
+                extended: constraints.maxWidth >= 600,
+                destinations: const [
+                  NavigationRailDestination(
+                    icon: Icon(Icons.home),
+                    label: Text('Home'),
+                  ),
+                  NavigationRailDestination(
+                    icon: Icon(Icons.radio_button_on),
+                    label: Text('Button Verification'),
+                  ),
+                ],
+                selectedIndex: selectedIndex,
+                onDestinationSelected: (value) {
+                  setState(() {
+                    selectedIndex = value;
+                  });
+                },
+              ),
+            ),
+            Expanded(
+              child: Container(
+                color: Theme.of(context).colorScheme.primaryContainer,
+                child: page,
+              ),
+            ),
+          ],
+        ),
+      );
+    });
   }
 }
