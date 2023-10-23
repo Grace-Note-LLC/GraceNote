@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_libserialport/flutter_libserialport.dart';
 
-import 'ButtonTest.dart'; // Serial Port Lib
+import 'score_page.dart'; // Serial Port Lib
 
 void main() {
   runApp(const MyApp());
@@ -45,12 +44,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
     switch (selectedIndex) {
       case 0:
-        page = Placeholder();
+        page = const Placeholder();
       case 1:
-        page = ButtonTest();
+        page = ScorePage();
         break;
       case 2:
-        page = Placeholder();
+        page = const Placeholder();
       default:
         throw UnimplementedError("BOO");
     }
@@ -71,6 +70,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     icon: Icon(Icons.radio_button_on),
                     label: Text('Button Verification'),
                   ),
+                  NavigationRailDestination(
+                    icon: Icon(Icons.radio_button_on),
+                    label: Text('Button Test'),
+                  )
                 ],
                 selectedIndex: selectedIndex,
                 onDestinationSelected: (value) {
