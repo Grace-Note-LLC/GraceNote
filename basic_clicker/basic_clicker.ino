@@ -79,6 +79,6 @@ void isr_data_button_falling()
     count = 0;
   }
   disp(count);
-  Serial.println(1);
+  Serial.println(count);
   delay(3000);
 }
