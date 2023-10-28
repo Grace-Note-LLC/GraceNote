@@ -45,11 +45,13 @@ class _MyHomePageState extends State<MyHomePage> {
     switch (selectedIndex) {
       case 0:
         page = const Placeholder();
+        break;
       case 1:
         page = ScorePage();
         break;
       case 2:
         page = const Placeholder();
+        break;
       default:
         throw UnimplementedError("BOO");
     }
