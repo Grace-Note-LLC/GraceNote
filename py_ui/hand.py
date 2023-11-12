@@ -55,7 +55,7 @@ thumb = ft.Container(
 # Clear Button Widget
 keyboardTest = ft.TextField(
     label = "Keyboard Test Field",
-    value = "Type Here"
+    value = ""
 )
 
 # Keybind Input Fields
