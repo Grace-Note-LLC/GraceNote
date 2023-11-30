@@ -4,6 +4,7 @@
 # pink10000
 
 import flet as ft
+import pyautogui as kb
 
 fingerWidth = 50
 fingerHeight = 50
@@ -85,3 +86,47 @@ thumbBind = ft.TextField(
     value = "e"
 )
 allBinds = [pinkyBind.value, ringBind.value, middleBind.value, indexBind.value, thumbBind.value]
+
+def updateButtons(stateArray):
+        animationBounceFactor = 0.5
+        # -------------------- PINKY --------------------
+        if stateArray[0] == "0":
+            pinky.bgcolor = ft.colors.RED
+            pinky.scale = 1
+        else:
+            kb.write(pinkyBind.value)
+            pinky.bgcolor = ft.colors.GREEN
+            pinky.scale = animationBounceFactor
+
+        # -------------------- RING ---------------------
+        if stateArray[1] == "0":
+            ring.bgcolor = ft.colors.RED
+            ring.scale = 1
+        else:
+            kb.write(ringBind.value)
+            ring.bgcolor = ft.colors.GREEN
+            ring.scale = animationBounceFactor
+        # -------------------- MIDDLE ---------------------
+        if stateArray[2] == "0":
+            middle.bgcolor = ft.colors.RED
+            middle.scale = 1
+        else:
+            kb.write(middleBind.value)
+            middle.bgcolor = ft.colors.GREEN
+            middle.scale = animationBounceFactor
+        # -------------------- INDEX ---------------------
+        if stateArray[3] == "0":
+            index.bgcolor = ft.colors.RED
+            index.scale = 1
+        else:
+            kb.write(indexBind.value)
+            index.bgcolor = ft.colors.GREEN
+            index.scale = animationBounceFactor
+        # -------------------- THUMB ---------------------
+        if stateArray[4] == "0":
+            thumb.bgcolor = ft.colors.RED
+            thumb.scale = 1
+        else:
+            kb.write(thumbBind.value)
+            thumb.bgcolor = ft.colors.GREEN
+            thumb.scale = animationBounceFactor
