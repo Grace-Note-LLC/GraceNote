@@ -98,7 +98,7 @@ def main(page: ft.Page):
                     portdisplays.display_box,
                     ft.ElevatedButton(
                         "Retry Finding Ports",
-                        on_click=page.update
+                        on_click=lambda _: page.update()
                     )
                 ],
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,

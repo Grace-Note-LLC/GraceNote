@@ -24,11 +24,11 @@ def list_ports():
     for port, desc, _ in sorted(ports):
         # print("{}: {}".format(port, desc))
         button = ft.ElevatedButton(
-                content=ft.Text("{}".format(port)),
-                bgcolor=ft.colors.GREY_900,
-                #alignment=ft.alignment.center, # (this gives me wackiest fucking error)
-                on_click=lambda _, port=port: assign_port(port),
-            )
+            content=ft.Text("{}".format(port)),
+            bgcolor=ft.colors.GREY_900,
+            #alignment=ft.alignment.center, # (this gives me wackiest error)
+            on_click=lambda _, port=port: assign_port(port),
+        )
         port_list.controls.append(button)
     return port_menu
 
