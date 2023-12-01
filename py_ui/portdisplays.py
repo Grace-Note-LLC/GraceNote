@@ -17,25 +17,37 @@ port_list_title = ft.Container(
     bgcolor=ft.colors.BLUE,
     border_radius=3
 )
+no_ports = ft.Container(
+    content=ft.Text("No Device Found"), 
+    padding=5,
+    bgcolor=ft.colors.RED,
+    border_radius=3,
+    alignment=ft.alignment.center
+)
+
 port_list = ft.ListView(padding=5, spacing=10, height=200, width=200)
 port_menu = ft.Column([port_list_title, port_list],horizontal_alignment=ft.CrossAxisAlignment.CENTER)
 
-def list_ports():
+# Loop for all available ports to find the button
+def list_ports(page):
     for port, desc, _ in sorted(ports):
-        # print("{}: {}".format(port, desc))
-        button = ft.ElevatedButton(
-            content=ft.Text("{}".format(port)),
-            bgcolor=ft.colors.GREY_900,
-            #alignment=ft.alignment.center, # (this gives me wackiest error)
-            on_click=lambda _, port=port: assign_port(port),
-        )
-        port_list.controls.append(button)
+        if ("Bluetooth" not in "{}".format(desc)):
+            print("{}".format(desc))
+            button = ft.ElevatedButton(
+                content=ft.Text("{}: {}".format(port, desc)),
+                bgcolor=ft.colors.GREY_900,
+                on_click=lambda _, port=port: assign_port(page, port),
+            )
+            port_list.controls.append(button)
+    if len(port_list.controls) == 0:
+        port_list.controls.append(no_ports)
+
     return port_menu
 
 # Assigns the port from a button click
 # The port will be passed as a string!!!
-def assign_port(port):
+def assign_port(page, port):
     print(port)
-    ser = serial.Serial(port, 9600)
-    reader = serialtest.ReadLine(ser)
-    out = reader.readline()
+    page.ser = serial.Serial(port, 9600)
+    page.reader = serialtest.ReadLine(page.ser)
+    page.out = page.reader.readline()
