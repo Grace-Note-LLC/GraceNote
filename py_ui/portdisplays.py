@@ -35,7 +35,7 @@ def list_ports():
     port_list.controls.clear()
     for port, desc, _ in sorted(ports):
         if ("Bluetooth" not in "{}".format(desc)):
-            print("Port Added: {}".format(desc))
+            print("Port Item Added: {}".format(desc))
             button = ft.ElevatedButton(
                 content=ft.Text("{}: {}".format(port, desc)),
                 bgcolor=ft.colors.GREY_900,
@@ -50,9 +50,13 @@ def list_ports():
 # Assigns the port from a button click
 # The port will be passed as a string!!!
 def assign_port(port):
-    print(port)
-    global_var.ser.close()
-    global_var.ser = serial.Serial(port, 9600)
-    global_var.reader = serialtest.ReadLine(global_var.ser)
-    global_var.out = global_var.reader.readline()
-    global_var.port_found = True
+    print(f"Connect Attempt: {port}")
+    # global_var.ser.close()
+    try:
+        global_var.ser = serial.Serial(port, 9600)
+        global_var.reader = serialtest.ReadLine(global_var.ser)
+        global_var.out = global_var.reader.readline()
+        global_var.port_found = True
+    except Exception as e:
+        print(f"Attempted to Connect to Previous Port: {e}")
+        list_ports()

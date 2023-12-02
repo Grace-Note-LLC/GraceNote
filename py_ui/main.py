@@ -13,11 +13,6 @@ import hand
 import portdisplays
 import global_var
 
-global ser
-global reader
-global out
-global stateArray
-
 total_buttons = 5
 
 def main(page: ft.Page):
@@ -40,7 +35,7 @@ def main(page: ft.Page):
 
         print("Updating Ports")
         num_ports_before = serial.tools.list_ports.comports()
-        lmc.content = portdisplays.list_ports(page)
+        lmc.content = portdisplays.list_ports()
         num_ports_after = serial.tools.list_ports.comports()
         if num_ports_after > num_ports_before:
             portdisplays.display_box.content = "Port Found"
@@ -67,6 +62,8 @@ def main(page: ft.Page):
         else:
             kb.write(hand.ringBind.value)
             hand.ring.bgcolor = ft.colors.GREEN
+            hand.ring.scale = 0.9
+
             hand.ring.scale = animationBounceFactor
         # -------------------- MIDDLE ---------------------
         if stateArray[2] == "0":
@@ -75,6 +72,8 @@ def main(page: ft.Page):
         else:
             kb.write(hand.middleBind.value)
             hand.middle.bgcolor = ft.colors.GREEN
+            hand.middle.scale = 0.9
+
             hand.middle.scale = animationBounceFactor
         # -------------------- INDEX ---------------------
         if stateArray[3] == "0":
@@ -83,6 +82,8 @@ def main(page: ft.Page):
         else:
             kb.write(hand.indexBind.value)
             hand.index.bgcolor = ft.colors.GREEN
+            hand.index.scale = 0.9
+
             hand.index.scale = animationBounceFactor
         # -------------------- THUMB ---------------------
         if stateArray[4] == "0":
@@ -91,6 +92,8 @@ def main(page: ft.Page):
         else:
             kb.write(hand.thumbBind.value)
             hand.thumb.bgcolor = ft.colors.GREEN
+            hand.thumb.scale = 0.9
+
             hand.thumb.scale = animationBounceFactor
         # -------
         page.update()
@@ -106,27 +109,23 @@ def main(page: ft.Page):
 
     # Try Catch-Setup
     prev = None
-    # reader = None
-    port_found = False
 
     # Global Serial Variables
     try:
         global_var.ser = serial.Serial('COM9', 9600)
-        print("ser found")
         global_var.reader = serialtest.ReadLine(global_var.ser)
-        print("reader found")
-
         prev = global_var.reader.readline()
+
         stateArray = list(str(global_var.reader.readline()))[12:12 + total_buttons]
-        port_found = True
+        global_var.port_found = True
         print("Port Found Again")
+
     except Exception as e:
         print(f"Error in Global Serial Variables: {e}")
-        port_found = False
+        global_var.port_found = False
     
     # Page Functionality
     lmc = ft.Container(portdisplays.list_ports())
-
     page.add(
         ft.Row(
             [
@@ -153,7 +152,7 @@ def main(page: ft.Page):
                     ])
                 ),
 
-                # Right Menu Container
+                # Right Menu Container / Unused 
                 ft.Container()
             ],
             alignment=ft.MainAxisAlignment.CENTER,
@@ -161,20 +160,28 @@ def main(page: ft.Page):
     )
     
     while True:
-        if (port_found):
+        if (global_var.port_found):
             print("Reading")
             # time.sleep(0.1)
              
             # Needs exception handling when device is pulled
+            line = None
+            try:
+                line = str(global_var.reader.readline())
+            except Exception as e:
+                print(f"Device no longer available: {e}")
+                global_var.port_found = False
+                continue
 
-            if str(prev) != str(global_var.reader.readline()):
+            if str(prev) != line:
                 stateArray = list(str(global_var.reader.readline()))[12:12 + total_buttons]
                 prev = global_var.reader.readline()
                 time.sleep(0.1)
                 updateButtons(stateArray)
                 print(stateArray)
-            # updateButtons(stateArray) # DO NOT REMOVE
         else:
+            stateArray = ["0", "0", "0", "0", "0"]
+            updateButtons(stateArray)
             print("Not Reading")
             time.sleep(0.5)
 

@@ -1,6 +1,4 @@
 # This file contains the Container widgets for the hand.
-# From counter.py, only the "bgcolor" gets changed.
-#
 # pink10000
 
 import flet as ft

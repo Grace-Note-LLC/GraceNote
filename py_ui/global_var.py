@@ -1,3 +1,5 @@
+# Global Variables File for Serial Data Transfer
+
 import serial
 
 ser = None
