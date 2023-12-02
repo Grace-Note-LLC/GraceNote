@@ -37,7 +37,7 @@ def list_ports():
         if ("Bluetooth" not in "{}".format(desc)):
             print("Port Item Added: {}".format(desc))
             button = ft.ElevatedButton(
-                content=ft.Text("{}: {}".format(port, desc)),
+                content=ft.Text("{}: {}".format(port, desc)[0:-7], size=10),
                 bgcolor=ft.colors.GREY_900,
                 on_click=lambda _, port=port: assign_port(port),
             )

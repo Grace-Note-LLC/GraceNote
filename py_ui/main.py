@@ -18,7 +18,7 @@ total_buttons = 5
 def main(page: ft.Page):
     
     # Setter Methods
-    def keyboardTestClear(e):
+    def keyboardTestClear():
         print(hand.keyboardTest.value)
         hand.keyboardTest.value = ""
         
@@ -31,7 +31,6 @@ def main(page: ft.Page):
         page.update()
     
     def port_update():
-        global port_found
 
         print("Updating Ports")
         num_ports_before = serial.tools.list_ports.comports()
@@ -40,7 +39,7 @@ def main(page: ft.Page):
         if num_ports_after > num_ports_before:
             portdisplays.display_box.content = "Port Found"
             portdisplays.display_box.bgcolor = ft.colors.GREEN
-            port_found = True
+            global_var.port_found = True
         page.update()
 
     def updateButtons(stateArray):
@@ -222,7 +221,7 @@ def main(page: ft.Page):
                 updateButtons(stateArray)
                 print(stateArray)
         else:
-            stateArray = ["0", "0", "0", "0", "0"]
+            stateArray = ["0"] * total_buttons
             updateButtons(stateArray)
             print("Not Reading")
             time.sleep(0.5)
