@@ -98,14 +98,28 @@ def main(page: ft.Page):
         # -------
         page.update()
 
-
     # Theme Restraints
     page.title = "GraceNote Interface Companion"
-    page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
-    page.window_frameless = True
-    page.window_height = 450
-    page.window_width = 600
+
+    # page.window_frameless = False
+    #page.window_min_height = 350
+    page.window_max_height = 300
+    #page.window_min_width = 500
+    page.window_max_width = 550
+    page.window_width = 550
+    page.window_maximizable = False
+    page.window_center()
+    page.padding = 0
+    page.spacing = 0
+
+    page.theme = ft.Theme(font_family="Consolas")
+
+    # page.window_always_on_top = True
+    # page.show_semantics_debugger = True 
+
+    page.window_opacity = 0.95
+    page.window_title_bar_hidden = True
 
     # Try Catch-Setup
     prev = None
@@ -125,37 +139,65 @@ def main(page: ft.Page):
         global_var.port_found = False
     
     # Page Functionality
+    page.add(
+        ft.ResponsiveRow([
+            ft.WindowDragArea(
+                ft.Container(
+                    width=page.window_width,
+                    #bgcolor="Brown",
+                    content=ft.Row([
+                        ft.Text("\t\tGraceNote Interface Companion", size=15, text_align="center"),
+                        ft.Container(
+                            ft.IconButton(ft.icons.CLOSE, icon_color="white", on_click=lambda _: page.window_close()),
+                        )
+                    ],
+                    alignment=ft.MainAxisAlignment.SPACE_BETWEEN
+                    )
+                ),
+            )
+        ]),
+    )
+
+
     lmc = ft.Container(portdisplays.list_ports())
     page.add(
-        ft.Row(
+        ft.Column(
             [
-                # Left Menu Container
-                lmc,
+                ft.Row(
+                    [
+                        # Left Menu Container
+                        lmc,
 
-                # Center Container
-                ft.Container(
-                    ft.Column([
-                        # Hand Widgets
-                        ft.Row([
-                            hand.pinkyBind, hand.ringBind, hand.middleBind, hand.indexBind, hand.thumbBind
-                        ]),
-                        ft.Row(
-                            [hand.pinky, hand.ring, hand.middle, hand.index, hand.thumb],
-                            alignment = ft.CrossAxisAlignment.CENTER,
+                        # Center Container
+                        ft.Container(
+                            ft.Column([
+                                # Hand Widgets
+                                ft.Row([
+                                    hand.pinkyBind, hand.ringBind, hand.middleBind, hand.indexBind, hand.thumbBind
+                                ]),
+                                ft.Row(
+                                    [hand.pinky, hand.ring, hand.middle, hand.index, hand.thumb],
+                                    alignment = ft.CrossAxisAlignment.CENTER,
+                                ),
+                                hand.keyboardTest,
+                                ft.Row(
+                                    [
+                                        ft.ElevatedButton("Clear", on_click = keyboardTestClear),
+                                        ft.ElevatedButton("Retry Finding Ports", on_click=lambda _: port_update())   
+                                    ],
+                                    alignment=ft.MainAxisAlignment.CENTER
+                                )
+                                
+                            ])
                         ),
-                        hand.keyboardTest,
-                        ft.Row([
-                            ft.ElevatedButton("Clear", on_click = keyboardTestClear),
-                            ft.ElevatedButton("Retry Finding Ports", on_click=lambda _: port_update())   
-                        ])
-                        
-                    ])
-                ),
 
-                # Right Menu Container / Unused 
-                ft.Container()
+                        # Right Menu Container / Unused 
+                        ft.Container()
+                    ],
+                    alignment=ft.MainAxisAlignment.CENTER,
+                )
             ],
-            alignment=ft.MainAxisAlignment.CENTER,
+            ft.MainAxisAlignment.START
         )
     )
     

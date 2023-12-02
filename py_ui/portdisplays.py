@@ -18,7 +18,7 @@ port_list_title = ft.Container(
     border_radius=3
 )
 no_ports = ft.Container(
-    content=ft.Text("No Device Found"), 
+    content=ft.Text("No Devices Found"), 
     padding=5,
     bgcolor=ft.colors.RED,
     border_radius=3,

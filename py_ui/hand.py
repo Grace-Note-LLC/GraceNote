@@ -5,6 +5,8 @@ import flet as ft
 
 fingerWidth = 50
 fingerHeight = 50
+bindHeight = fingerHeight 
+
 baseColor = ft.colors.RED
 
 # Hand Widgets
@@ -59,26 +61,31 @@ keyboardTest = ft.TextField(
 # Keybind Input Fields
 pinkyBind = ft.TextField(
     width = fingerWidth,
+    height = bindHeight,
     text_align = "CENTER",
     value = "a"
 )
 ringBind = ft.TextField(
     width = fingerWidth,
+    height = bindHeight,
     text_align = "CENTER",
     value = "b"
 )
 middleBind = ft.TextField(
     width = fingerWidth,
+    height = bindHeight,
     text_align = "CENTER",
     value = "c"
 )
 indexBind = ft.TextField(
     width = fingerWidth,
+    height = bindHeight,
     text_align = "CENTER",
     value = "d"
 )
 thumbBind = ft.TextField(
     width = fingerWidth,
+    height = bindHeight,
     text_align = "CENTER",
     value = "e"
 )
