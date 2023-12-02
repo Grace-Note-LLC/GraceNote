@@ -11,6 +11,7 @@ import time
 # Helper Imports
 import hand
 import portdisplays
+import global_var
 
 global ser
 global reader
@@ -19,15 +20,12 @@ global stateArray
 
 total_buttons = 5
 
-
-
 def main(page: ft.Page):
-
+    
     # Setter Methods
     def keyboardTestClear(e):
         print(hand.keyboardTest.value)
         hand.keyboardTest.value = ""
-        page.update()
         
         # Update Page Earlier to Reduce Latency
         page.update()
@@ -36,9 +34,18 @@ def main(page: ft.Page):
         if len(hand.keyboardTest.value) > 30:
             hand.keyboardTest.value = ""
         page.update()
-
+    
     def port_update():
-        portdisplays.list_ports(page)
+        global port_found
+
+        print("Updating Ports")
+        num_ports_before = serial.tools.list_ports.comports()
+        lmc.content = portdisplays.list_ports(page)
+        num_ports_after = serial.tools.list_ports.comports()
+        if num_ports_after > num_ports_before:
+            portdisplays.display_box.content = "Port Found"
+            portdisplays.display_box.bgcolor = ft.colors.GREEN
+            port_found = True
         page.update()
 
     def updateButtons(stateArray):
@@ -104,19 +111,27 @@ def main(page: ft.Page):
 
     # Global Serial Variables
     try:
-        prev = reader.readline()
-        stateArray = list(str(reader.readline()))[12:12 + total_buttons]
+        global_var.ser = serial.Serial('COM9', 9600)
+        print("ser found")
+        global_var.reader = serialtest.ReadLine(global_var.ser)
+        print("reader found")
+
+        prev = global_var.reader.readline()
+        stateArray = list(str(global_var.reader.readline()))[12:12 + total_buttons]
         port_found = True
         print("Port Found Again")
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"Error in Global Serial Variables: {e}")
+        port_found = False
     
     # Page Functionality
+    lmc = ft.Container(portdisplays.list_ports())
+
     page.add(
         ft.Row(
             [
                 # Left Menu Container
-                ft.Container(portdisplays.list_ports(page)),
+                lmc,
 
                 # Center Container
                 ft.Container(
@@ -130,7 +145,11 @@ def main(page: ft.Page):
                             alignment = ft.CrossAxisAlignment.CENTER,
                         ),
                         hand.keyboardTest,
-                        ft.ElevatedButton("Clear", on_click = keyboardTestClear)
+                        ft.Row([
+                            ft.ElevatedButton("Clear", on_click = keyboardTestClear),
+                            ft.ElevatedButton("Retry Finding Ports", on_click=lambda _: port_update())   
+                        ])
+                        
                     ])
                 ),
 
@@ -141,39 +160,23 @@ def main(page: ft.Page):
         )
     )
     
-    if (port_found):
-        while True:
-            if str(prev) != str(reader.readline()):
-                stateArray = list(str(reader.readline()))[12:12 + total_buttons]
-                prev = reader.readline()
+    while True:
+        if (port_found):
+            print("Reading")
+            # time.sleep(0.1)
+             
+            # Needs exception handling when device is pulled
+
+            if str(prev) != str(global_var.reader.readline()):
+                stateArray = list(str(global_var.reader.readline()))[12:12 + total_buttons]
+                prev = global_var.reader.readline()
                 time.sleep(0.1)
                 updateButtons(stateArray)
+                print(stateArray)
             # updateButtons(stateArray) # DO NOT REMOVE
-    else:
-        page.add(
-            ft.Column(
-                [
-                    portdisplays.display_box,
-                    ft.ElevatedButton(
-                        "Retry Finding Ports",
-                        on_click=lambda _: port_update()
-                    )
-                ],
-                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-            )
-        )
+        else:
+            print("Not Reading")
+            time.sleep(0.5)
 
 # -------------------- Main Program --------------------
-try:
-    ser = serial.Serial('COM9', 9600)
-    reader = serialtest.ReadLine(ser)
-    out = reader.readline()
-    print("Port Located")
-except serial.SerialException as e:
-    print(f"Error: {e}")
-    #quit()
-except Exception as e:
-    print(f"An unexpected error occurred: {e}")
-    #quit()
-
 ft.app(target=main)

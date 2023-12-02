@@ -1,9 +1,9 @@
 import flet as ft
 
 import serialtest
+import global_var
 
 import serial.tools.list_ports
-ports = serial.tools.list_ports.comports()
 
 display_box = ft.Container(
     content=ft.Text("No Device Found"), 
@@ -26,17 +26,20 @@ no_ports = ft.Container(
 )
 
 port_list = ft.ListView(padding=5, spacing=10, height=200, width=200)
-port_menu = ft.Column([port_list_title, port_list],horizontal_alignment=ft.CrossAxisAlignment.CENTER)
+port_menu = ft.Column([port_list_title, port_list], horizontal_alignment=ft.CrossAxisAlignment.CENTER)
 
 # Loop for all available ports to find the button
-def list_ports(page):
+def list_ports():
+    print("Listing Ports")
+    ports = serial.tools.list_ports.comports()
+    port_list.controls.clear()
     for port, desc, _ in sorted(ports):
         if ("Bluetooth" not in "{}".format(desc)):
-            print("{}".format(desc))
+            print("Port Added: {}".format(desc))
             button = ft.ElevatedButton(
                 content=ft.Text("{}: {}".format(port, desc)),
                 bgcolor=ft.colors.GREY_900,
-                on_click=lambda _, port=port: assign_port(page, port),
+                on_click=lambda _, port=port: assign_port(port),
             )
             port_list.controls.append(button)
     if len(port_list.controls) == 0:
@@ -46,8 +49,10 @@ def list_ports(page):
 
 # Assigns the port from a button click
 # The port will be passed as a string!!!
-def assign_port(page, port):
+def assign_port(port):
     print(port)
-    page.ser = serial.Serial(port, 9600)
-    page.reader = serialtest.ReadLine(page.ser)
-    page.out = page.reader.readline()
+    global_var.ser.close()
+    global_var.ser = serial.Serial(port, 9600)
+    global_var.reader = serialtest.ReadLine(global_var.ser)
+    global_var.out = global_var.reader.readline()
+    global_var.port_found = True
