@@ -53,7 +53,7 @@ def main(page: ft.Page):
             hand.pinky.bgcolor = ft.colors.RED
             hand.pinky.scale = 1
         else:
-            kb.write(hand.pinkyBind.value)
+            kb.press(hand.pinkyBind.value)
             hand.pinky.bgcolor = ft.colors.GREEN
             hand.pinky.scale = 0.9
 
@@ -63,7 +63,7 @@ def main(page: ft.Page):
             hand.ring.bgcolor = ft.colors.RED
             hand.ring.scale = 1
         else:
-            kb.write(hand.ringBind.value)
+            kb.press(hand.ringBind.value)
             hand.ring.bgcolor = ft.colors.GREEN
             hand.ring.scale = 0.9
 
@@ -73,7 +73,7 @@ def main(page: ft.Page):
             hand.middle.bgcolor = ft.colors.RED
             hand.middle.scale = 1
         else:
-            kb.write(hand.middleBind.value)
+            kb.press(hand.middleBind.value)
             hand.middle.bgcolor = ft.colors.GREEN
             hand.middle.scale = 0.9
 
