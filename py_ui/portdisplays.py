@@ -32,6 +32,8 @@ port_menu = ft.Column([port_list_title, port_list], horizontal_alignment=ft.Cros
 def list_ports():
     print("Listing Ports")
     ports = serial.tools.list_ports.comports()
+    # color_before = ft.colors.RED;
+    # colorGG = ft.colors.GREY_900;
     port_list.controls.clear()
     for port, desc, _ in sorted(ports):
         if ("Bluetooth" not in "{}".format(desc)):
@@ -39,7 +41,9 @@ def list_ports():
             button = ft.ElevatedButton(
                 content=ft.Text("{}: {}".format(port, desc)[0:-7], size=10),
                 bgcolor=ft.colors.GREY_900,
+                
                 on_click=lambda _, port=port: assign_port(port),
+                # bgcolor=ft.colors.GREEN_600,
             )
             port_list.controls.append(button)
     if len(port_list.controls) == 0:
@@ -57,6 +61,10 @@ def assign_port(port):
         global_var.reader = serialtest.ReadLine(global_var.ser)
         global_var.out = global_var.reader.readline()
         global_var.port_found = True
+        bute = port_list.controls.pop();
+        bute.bgcolor = ft.colors.GREEN_600;
+        port_list.controls.append(bute);
+
     except Exception as e:
         print(f"Attempted to Connect to Previous Port: {e}")
         list_ports()

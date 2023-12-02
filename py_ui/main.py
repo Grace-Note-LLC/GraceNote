@@ -42,6 +42,10 @@ def main(page: ft.Page):
             global_var.port_found = True
         page.update()
 
+
+    # def port_connected_update():
+
+
     def updateButtons(stateArray):
         animationBounceFactor = 0.5
         # -------------------- PINKY --------------------
