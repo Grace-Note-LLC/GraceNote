@@ -18,7 +18,7 @@ def main(page: ft.Page):
     # Setter Methods
 
     # (e) required!!
-    def keyboardTestClear(_):
+    def keyboardTestClear():
         print(hand.keyboardTest.value)
         hand.keyboardTest.value = ""
         
@@ -31,7 +31,6 @@ def main(page: ft.Page):
         page.update()
     
     def port_update():
-
         print("Updating Ports")
         num_ports_before = serial.tools.list_ports.comports()
         lmc.content = portdisplays.list_ports()
@@ -43,8 +42,20 @@ def main(page: ft.Page):
         page.update()
 
 
-    # def port_connected_update():
+    def write_config():
+        header = "PREPARE DATA TRANSFER"
+        footer = "DATA TRANSFER COMPLETE"
+        payload = "".join([hand.pinkyBind.value, hand.ringBind.value, hand.middleBind.value, hand.indexBind.value, hand.thumbBind.value])
 
+        global_var.ser.reset_output_buffer()
+
+        print(header)
+        print(f"PAYLOAD SENDING: {payload}")
+        global_var.ser.write(payload.encode('utf-8'))
+        time.sleep(0.1)
+
+        print(footer)
+        global_var.ser.flush()
 
     def updateButtons(stateArray):
         animationBounceFactor = 0.5
@@ -130,7 +141,7 @@ def main(page: ft.Page):
     # Global Serial Variables
     try:
         global_var.ser = serial.Serial('COM9', global_var.baud_rate)
-        global_var.reader = serialtest.ReadLine(global_var.ser)
+        # global_var.reader = serialtest.ReadLine(global_var.ser)
         prev = global_var.reader.readline()
 
         stateArray = list(str(global_var.reader.readline()))[12:12 + global_var.total_buttons]
@@ -169,7 +180,7 @@ def main(page: ft.Page):
                 ft.Row(
                     [
                         # Left Menu Container
-                        lmc,
+                        ft.Column([lmc, ft.ElevatedButton("Send Input", icon= ft.icons.UPLOAD_ROUNDED, on_click=lambda _: write_config())]),
 
                         # Center Container
                         ft.Container(
@@ -185,8 +196,8 @@ def main(page: ft.Page):
                                 hand.keyboardTest,
                                 ft.Row(
                                     [
-                                        ft.ElevatedButton("Clear", on_click = keyboardTestClear),
-                                        ft.ElevatedButton("Retry Finding Ports", on_click=lambda _: port_update())   
+                                        ft.ElevatedButton("Clear", icon=ft.icons.DELETE_OUTLINE, on_click=lambda _: keyboardTestClear()),
+                                        ft.ElevatedButton("Find Ports", icon=ft.icons.RESTART_ALT_ROUNDED, on_click=lambda _: port_update()),
                                     ],
                                     alignment=ft.MainAxisAlignment.CENTER
                                 )
@@ -218,15 +229,16 @@ def main(page: ft.Page):
                 global_var.port_found = False
                 continue
 
-            if str(prev) != line:
-                stateArray = list(str(global_var.reader.readline()))[12:12 + global_var.total_buttons]
-                prev = global_var.reader.readline()
-                # time.sleep(0.1)
-                updateButtons(stateArray)
-                print(stateArray)
+            # if str(prev) != line:
+            #     stateArray = list(str(global_var.reader.readline()))[12:12 + global_var.total_buttons]
+            #     prev = global_var.reader.readline()
+            #     # time.sleep(0.1)
+            #     updateButtons(stateArray)
+            #     print(stateArray)
+
         else:
             stateArray = ["0"] * global_var.total_buttons
-            updateButtons(stateArray)
+            # updateButtons(stateArray)
             print("Not Reading")
             time.sleep(0.5)
 
