@@ -13,12 +13,12 @@ import hand
 import portdisplays
 import global_var
 
-total_buttons = 5
-
 def main(page: ft.Page):
     
     # Setter Methods
-    def keyboardTestClear():
+
+    # (e) required!!
+    def keyboardTestClear(_):
         print(hand.keyboardTest.value)
         hand.keyboardTest.value = ""
         
@@ -78,27 +78,27 @@ def main(page: ft.Page):
             hand.middle.scale = 0.9
 
             hand.middle.scale = animationBounceFactor
-        # -------------------- INDEX ---------------------
-        if stateArray[3] == "0":
-            hand.index.bgcolor = ft.colors.RED
-            hand.index.scale = 1
-        else:
-            kb.write(hand.indexBind.value)
-            hand.index.bgcolor = ft.colors.GREEN
-            hand.index.scale = 0.9
+        # # -------------------- INDEX ---------------------
+        # if stateArray[3] == "0":
+        #     hand.index.bgcolor = ft.colors.RED
+        #     hand.index.scale = 1
+        # else:
+        #     kb.write(hand.indexBind.value)
+        #     hand.index.bgcolor = ft.colors.GREEN
+        #     hand.index.scale = 0.9
 
-            hand.index.scale = animationBounceFactor
-        # -------------------- THUMB ---------------------
-        if stateArray[4] == "0":
-            hand.thumb.bgcolor = ft.colors.RED
-            hand.thumb.scale = 1
-        else:
-            kb.write(hand.thumbBind.value)
-            hand.thumb.bgcolor = ft.colors.GREEN
-            hand.thumb.scale = 0.9
+        #     hand.index.scale = animationBounceFactor
+        # # -------------------- THUMB ---------------------
+        # if stateArray[4] == "0":
+        #     hand.thumb.bgcolor = ft.colors.RED
+        #     hand.thumb.scale = 1
+        # else:
+        #     kb.write(hand.thumbBind.value)
+        #     hand.thumb.bgcolor = ft.colors.GREEN
+        #     hand.thumb.scale = 0.9
 
-            hand.thumb.scale = animationBounceFactor
-        # -------
+        #     hand.thumb.scale = animationBounceFactor
+        # # -------
         page.update()
 
     # Theme Restraints
@@ -129,11 +129,11 @@ def main(page: ft.Page):
 
     # Global Serial Variables
     try:
-        global_var.ser = serial.Serial('COM9', 9600)
+        global_var.ser = serial.Serial('COM9', global_var.baud_rate)
         global_var.reader = serialtest.ReadLine(global_var.ser)
         prev = global_var.reader.readline()
 
-        stateArray = list(str(global_var.reader.readline()))[12:12 + total_buttons]
+        stateArray = list(str(global_var.reader.readline()))[12:12 + global_var.total_buttons]
         global_var.port_found = True
         print("Port Found Again")
 
@@ -206,8 +206,8 @@ def main(page: ft.Page):
     
     while True:
         if (global_var.port_found):
-            print("Reading")
-            # time.sleep(0.1)
+            # print("Reading")
+            # time.sleep(0.1)b
              
             # Needs exception handling when device is pulled
             line = None
@@ -219,13 +219,13 @@ def main(page: ft.Page):
                 continue
 
             if str(prev) != line:
-                stateArray = list(str(global_var.reader.readline()))[12:12 + total_buttons]
+                stateArray = list(str(global_var.reader.readline()))[12:12 + global_var.total_buttons]
                 prev = global_var.reader.readline()
-                time.sleep(0.1)
+                # time.sleep(0.1)
                 updateButtons(stateArray)
                 print(stateArray)
         else:
-            stateArray = ["0"] * total_buttons
+            stateArray = ["0"] * global_var.total_buttons
             updateButtons(stateArray)
             print("Not Reading")
             time.sleep(0.5)

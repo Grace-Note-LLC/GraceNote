@@ -51,15 +51,16 @@ def list_ports():
 # The port will be passed as a string!!!
 def assign_port(port):
     print(f"Connect Attempt: {port}")
-    # global_var.ser.close()
     try:
-        global_var.ser = serial.Serial(port, 9600)
+        global_var.ser = serial.Serial(port, global_var.baud_rate)
+        
         global_var.reader = serialtest.ReadLine(global_var.ser)
-        global_var.out = global_var.reader.readline()
+        print("N!O!OO!")
+        # global_var.out = global_var.reader.readline()
+        print("AHAHHA")
         global_var.port_found = True
-        bute = port_list.controls.pop();
-        bute.bgcolor = ft.colors.GREEN_600;
-        port_list.controls.append(bute);
+        
+        print(f"Port Found: {global_var.port_found}")
 
     except Exception as e:
         print(f"Attempted to Connect to Previous Port: {e}")
