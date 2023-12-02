@@ -32,18 +32,14 @@ port_menu = ft.Column([port_list_title, port_list], horizontal_alignment=ft.Cros
 def list_ports():
     print("Listing Ports")
     ports = serial.tools.list_ports.comports()
-    # color_before = ft.colors.RED;
-    # colorGG = ft.colors.GREY_900;
     port_list.controls.clear()
     for port, desc, _ in sorted(ports):
         if ("Bluetooth" not in "{}".format(desc)):
             print("Port Item Added: {}".format(desc))
             button = ft.ElevatedButton(
                 content=ft.Text("{}: {}".format(port, desc)[0:-7], size=10),
-                bgcolor=ft.colors.GREY_900,
-                
+                bgcolor=ft.colors.GREY_900,                
                 on_click=lambda _, port=port: assign_port(port),
-                # bgcolor=ft.colors.GREEN_600,
             )
             port_list.controls.append(button)
     if len(port_list.controls) == 0:
