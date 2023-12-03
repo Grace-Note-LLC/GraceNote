@@ -140,6 +140,10 @@ def main(page: ft.Page):
         )
         page.update()
 
+    def minimize():
+        page.window_minimized = True
+        page.update()
+
     # Theme Restraints
     page.title = "GraceNote Interface Companion"
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
@@ -189,9 +193,14 @@ def main(page: ft.Page):
                     #bgcolor="Brown",
                     content=ft.Row([
                         ft.Text("\t\tGraceNote Interface Companion", size=15, text_align=ft.alignment.center),
-                        ft.Container(
-                            ft.IconButton(ft.icons.CLOSE, icon_color="white", on_click=lambda _: page.window_close()),
-                        )
+                        ft.Row([
+                            ft.Container(
+                                ft.IconButton(ft.icons.MINIMIZE, icon_color="white", on_click=lambda _: minimize()),
+                            ),
+                            ft.Container(
+                                ft.IconButton(ft.icons.CLOSE, icon_color="white", on_click=lambda _: page.window_close()),
+                            )
+                        ])
                     ],
                     alignment=ft.MainAxisAlignment.SPACE_BETWEEN
                     )
