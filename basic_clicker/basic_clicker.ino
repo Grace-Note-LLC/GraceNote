@@ -21,6 +21,7 @@ void setup() {
 }
 
 void loop() {
+  Serial.println(count);
 }
 
 void disp(int num)
@@ -79,6 +80,6 @@ void isr_data_button_falling()
     count = 0;
   }
   disp(count);
-  Serial.println(count);
-  delay(3000);
+//  Serial.println(count);
+//  delay(3000);
 }
