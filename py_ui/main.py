@@ -221,7 +221,12 @@ def main(page: ft.Page):
                 ft.Row(
                     [
                         # Left Menu Container
-                        lmc,
+                        ft.Column(
+                            [
+                                lmc, 
+                                # ft.ElevatedButton(content=ft.Text("Preset 1"), on_click=lambda _: hand.preset1())
+                            ]
+                        ),
 
                         # Center Container
                         ft.Container(

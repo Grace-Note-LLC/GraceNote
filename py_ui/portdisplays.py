@@ -25,7 +25,7 @@ no_ports = ft.Container(
     alignment=ft.alignment.center
 )
 
-port_list = ft.ListView(padding=5, spacing=10, height=150, width=200)
+port_list = ft.ListView(padding=5, spacing=10, height=100, width=200)
 port_menu = ft.Column([port_list_title, port_list], horizontal_alignment=ft.CrossAxisAlignment.CENTER)
 
 # Loop for all available ports to find the button

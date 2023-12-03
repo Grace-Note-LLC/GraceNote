@@ -56,28 +56,28 @@ pinkyBind = ft.TextField(
     width = fingerWidth,
     height = bindHeight,
     text_align = "CENTER",
-    value = "a",
+    value = "d",
     on_focus = lambda _: verify_input(),
 )
 ringBind = ft.TextField(
     width = fingerWidth,
     height = bindHeight,
     text_align = "CENTER",
-    value = "b",
+    value = "f",
     on_focus = lambda _: verify_input(),
 )
 middleBind = ft.TextField(
     width = fingerWidth,
     height = bindHeight,
     text_align = "CENTER",
-    value = "c",
+    value = "j",
     on_focus = lambda _: verify_input(),
 )
 indexBind = ft.TextField(
     width = fingerWidth,
     height = bindHeight,
     text_align = "CENTER",
-    value = "d",
+    value = "k",
     on_focus = lambda _: verify_input(),
 )
 
@@ -88,4 +88,11 @@ def verify_input():
     ringBind.value = ringBind.value[-1] if len(ringBind.value) > 0 else ""
     middleBind.value = middleBind.value[-1] if len(middleBind.value) > 0 else ""
     indexBind.value = indexBind.value[-1] if len(indexBind.value) > 0 else ""
+    global_var.page.update()
+
+def preset1():
+    pinkyBind.value = "z"
+    ringBind.value = "x"
+    middleBind.value = ""
+    indexBind.value = ""
     global_var.page.update()
