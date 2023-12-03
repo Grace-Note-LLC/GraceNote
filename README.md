@@ -1,7 +1,7 @@
 # Grace Note - QP Fall 2023 Team 6 Spec Sheet
 
 ## High-level Explanation
-Grace Note is a USB serial device that is intended for use in musical applications, built off of the ESP32-S2 microprocessor. Similar to a Guitar Hero guitar, or an Osu tablet/pen, we are hoping to make a device that can bring a fun, handy new tool to the genre of rhythm games. The physical device has 4 independent "pads", each intended for use with 1 finger. When the user touches one of their fingers to a pad, it will send a key press (like from a keyboard) to the computer. The exact key that is sent can be configured by the user with our multi-platform companion app (created using Flutter) on the device of their choosing. This could be applied directly to rhythm games such as _Osu! Mania_ or _Guitar Hero_, or it could be treated as if it were its own instrument - the choice is up to the user!
+Grace Note is a USB serial device that is intended for use in musical applications, built off of the ESP32-S2 microprocessor. Similar to a Guitar Hero guitar, or an Osu tablet/pen, we are hoping to make a device that can bring a fun, handy new tool to the genre of rhythm games. The physical device has 4 independent "pads", each intended for use with 1 finger. When the user touches one of their fingers to a pad, it will send a key press (like from a keyboard) to the computer. The exact key that is sent can be configured by the user with our multi-platform companion app (created using Flet) on the device of their choosing. This could be applied directly to rhythm games such as _Osu! Mania_ or _Guitar Hero_, or it could be treated as if it were its own instrument - the choice is up to the user!
 
 ## Technical Details
 
