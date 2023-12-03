@@ -53,8 +53,7 @@ def main(page: ft.Page):
         page.update()
 
     def write_config():
-        payload = "".join([hand.pinkyBind.value, hand.ringBind.value, hand.middleBind.value, hand.indexBind.value])
-
+        payload = "".join([hand.pinkyBind.value, "~", hand.ringBind.value, "~", hand.middleBind.value," ~", hand.indexBind.value])
         try:
             global_var.ser.reset_output_buffer()
         except Exception as e:
