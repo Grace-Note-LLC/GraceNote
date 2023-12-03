@@ -35,7 +35,7 @@ middle = ft.Container(
     width = fingerWidth,
     height = fingerHeight,
     alignment = ft.alignment.center,
-    content = ft.Text("Mid\nRight",text_align=ft.alignment.center),
+    content = ft.Text("  Mid\nRight",text_align=ft.alignment.center), # 2 spaces necessary for style
     bgcolor = ft.colors.RED,
     scale=ft.transform.Scale(scale=1),
     animate_scale=ft.animation.Animation(600, ft.AnimationCurve.BOUNCE_OUT),
@@ -91,8 +91,52 @@ def verify_input():
     global_var.page.update()
 
 def preset1():
+    pinkyBind.value = "d"
+    ringBind.value = "f"
+    middleBind.value = "j"
+    indexBind.value = "k"
+    global_var.page.update()
+
+def preset2():
     pinkyBind.value = "z"
     ringBind.value = "x"
     middleBind.value = ""
     indexBind.value = ""
     global_var.page.update()
+
+def preset3():
+    pinkyBind.value = "q"
+    ringBind.value = "w"
+    middleBind.value = "o"
+    indexBind.value = "p"
+    global_var.page.update()
+
+# List of Preset Buttons
+preset1_item = ft.PopupMenuItem(
+    content=ft.Row(
+        [           
+            ft.Icon(ft.icons.ARROW_FORWARD_IOS),
+            ft.Text("Rhythm-Plus"),
+        ]
+    ),
+    on_click=lambda _: preset1(),
+)
+preset2_item = ft.PopupMenuItem(
+    content=ft.Row(
+        [           
+            ft.Icon(ft.icons.ARROW_FORWARD_IOS),
+            ft.Text("OSU!"),
+        ]
+    ),
+    on_click=lambda _: preset2(),
+)
+preset3_item = ft.PopupMenuItem(
+    content=ft.Row(
+        [           
+            ft.Icon(ft.icons.ARROW_FORWARD_IOS),
+            ft.Text("OSU! Mania"),
+        ]
+    ),
+    on_click=lambda _: preset3(),
+)
+preset_list = [preset1_item, preset2_item, preset3_item]
