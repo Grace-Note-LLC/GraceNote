@@ -9,6 +9,7 @@ import time
 # Helper Imports
 import hand
 import portdisplays
+# import settingsPage
 import global_var
 
 def main(page: ft.Page):
@@ -195,12 +196,18 @@ def main(page: ft.Page):
                         ft.Text("\t\tGraceNote Interface Companion", size=15, text_align=ft.alignment.center),
                         ft.Row([
                             ft.Container(
-                                ft.IconButton(ft.icons.MINIMIZE, icon_color="white", on_click=lambda _: minimize()),
+                                ft.IconButton(ft.icons.MINIMIZE, on_click=lambda _: minimize()),
+                            ),
+                            # ft.Container(
+                            #     ft.IconButton(ft.icons.SETTINGS, icon_color="white", on_click=lambda _: settingsPage.settingsPage()),
+                            # ),
+                            ft.Container(
+                                ft.IconButton(ft.icons.SETTINGS, on_click=lambda _: theme_changed()),
                             ),
                             ft.Container(
-                                ft.IconButton(ft.icons.CLOSE, icon_color="white", on_click=lambda _: page.window_close()),
-                            )
-                        ])
+                                ft.IconButton(ft.icons.CLOSE, on_click=lambda _: page.window_close()),
+                                )
+                            ])
                     ],
                     alignment=ft.MainAxisAlignment.SPACE_BETWEEN
                     )
