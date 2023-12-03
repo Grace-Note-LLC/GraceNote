@@ -13,7 +13,7 @@ import portdisplays
 import global_var
 
 def main(page: ft.Page):
-    
+    global_var.page = page
     # Setter Methods
 
     # (e) required!!
@@ -53,16 +53,19 @@ def main(page: ft.Page):
         page.update()
 
     def write_config():
+        hand.verify_input()
         payload = "".join([hand.pinkyBind.value, "~", hand.ringBind.value, "~", hand.middleBind.value, "~", hand.indexBind.value])
         try:
             global_var.ser.reset_output_buffer()
+            global_var.ser.write(payload.encode('utf-8'))
+            time.sleep(0.1)
+            global_var.ser.flush()
+            print(f"PAYLOAD SENDING: {payload}")
         except Exception as e:
             print(f"Sent data to nonexistent port: {e}")
             sent_nothing_dialog()
-        print(f"PAYLOAD SENDING: {payload}")
-        global_var.ser.write(payload.encode('utf-8'))
-        time.sleep(0.1)
-        global_var.ser.flush()
+        
+        
 
     sent_nothing_dialog_box = ft.AlertDialog(title=ft.Text("\t\t No Port to Send Data to", size=15))
     def sent_nothing_dialog():

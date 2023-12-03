@@ -2,6 +2,7 @@
 # pink10000
 
 import flet as ft
+import global_var
 
 fingerWidth = 50
 fingerHeight = 50
@@ -55,30 +56,36 @@ pinkyBind = ft.TextField(
     width = fingerWidth,
     height = bindHeight,
     text_align = "CENTER",
-    value = "a"
+    value = "a",
+    on_focus = lambda _: verify_input(),
 )
 ringBind = ft.TextField(
     width = fingerWidth,
     height = bindHeight,
     text_align = "CENTER",
-    value = "b"
+    value = "b",
+    on_focus = lambda _: verify_input(),
 )
 middleBind = ft.TextField(
     width = fingerWidth,
     height = bindHeight,
     text_align = "CENTER",
-    value = "c"
+    value = "c",
+    on_focus = lambda _: verify_input(),
 )
 indexBind = ft.TextField(
     width = fingerWidth,
     height = bindHeight,
     text_align = "CENTER",
-    value = "d"
+    value = "d",
+    on_focus = lambda _: verify_input(),
 )
-thumbBind = ft.TextField(
-    width = fingerWidth,
-    height = bindHeight,
-    text_align = "CENTER",
-    value = "e"
-)
-allBinds = [pinkyBind.value, ringBind.value, middleBind.value, indexBind.value, thumbBind.value]
+
+allBinds = [pinkyBind.value, ringBind.value, middleBind.value, indexBind.value]
+
+def verify_input():
+    pinkyBind.value = pinkyBind.value[-1] if len(pinkyBind.value) > 0 else ""
+    ringBind.value = ringBind.value[-1] if len(ringBind.value) > 0 else ""
+    middleBind.value = middleBind.value[-1] if len(middleBind.value) > 0 else ""
+    indexBind.value = indexBind.value[-1] if len(indexBind.value) > 0 else ""
+    global_var.page.update()

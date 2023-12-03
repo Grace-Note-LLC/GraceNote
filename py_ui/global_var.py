@@ -8,3 +8,5 @@ port_found = False
 baud_rate = 2000000
 
 total_buttons = 4
+
+page = None
