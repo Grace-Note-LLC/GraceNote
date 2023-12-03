@@ -17,15 +17,15 @@ def main(page: ft.Page):
 
     # (e) required!!
     def keyboardTestClear():
-        print(hand.keyboardTest.value)
-        hand.keyboardTest.value = ""
+        print(keyboardTest.content.value)
+        keyboardTest.value = ""
         
         # Update Page Earlier to Reduce Latency
         page.update()
         
         # Automatic Update for Keyboard
-        if len(hand.keyboardTest.value) > 30:
-            hand.keyboardTest.value = ""
+        if len(keyboardTest.content.value) > 30:
+            keyboardTest.content.value = ""
         page.update()
     
     no_ports_dialog_box = ft.AlertDialog(
@@ -53,7 +53,7 @@ def main(page: ft.Page):
         page.update()
 
     def write_config():
-        payload = "".join([hand.pinkyBind.value, hand.ringBind.value, hand.middleBind.value, hand.indexBind.value, hand.thumbBind.value])
+        payload = "".join([hand.pinkyBind.value, hand.ringBind.value, hand.middleBind.value, hand.indexBind.value])
 
         try:
             global_var.ser.reset_output_buffer()
@@ -65,12 +65,11 @@ def main(page: ft.Page):
         time.sleep(0.1)
         global_var.ser.flush()
 
-    sent_nothing_dialog_box = ft.AlertDialog(title=ft.Text("Sent data to nonexistent port", size=15))
+    sent_nothing_dialog_box = ft.AlertDialog(title=ft.Text("\t\t No Port to Send Data to", size=15))
     def sent_nothing_dialog():
         page.dialog = sent_nothing_dialog_box
         sent_nothing_dialog_box.open = True
         page.update()
-
 
     def updateButtons(stateArray):
         animationBounceFactor = 0.5
@@ -78,60 +77,79 @@ def main(page: ft.Page):
         if stateArray[0] == "0":
             hand.pinky.bgcolor = ft.colors.RED
             hand.pinky.scale = 1
+            page.update()
         else:
             hand.pinky.bgcolor = ft.colors.GREEN
             hand.pinky.scale = 0.9
-
             hand.pinky.scale = animationBounceFactor
+            page.update()
         # -------------------- RING ---------------------
         if stateArray[1] == "0":
             hand.ring.bgcolor = ft.colors.RED
             hand.ring.scale = 1
+            page.update()
         else:
             hand.ring.bgcolor = ft.colors.GREEN
             hand.ring.scale = 0.9
-
             hand.ring.scale = animationBounceFactor
-        # -------------------- MIDDLE ---------------------
+            page.update()
+       # -------------------- MIDDLE ---------------------
         if stateArray[2] == "0":
             hand.middle.bgcolor = ft.colors.RED
             hand.middle.scale = 1
+            page.update()
         else:
             hand.middle.bgcolor = ft.colors.GREEN
             hand.middle.scale = 0.9
-
             hand.middle.scale = animationBounceFactor
+            page.update()
         # -------------------- INDEX ---------------------
         if stateArray[3] == "0":
             hand.index.bgcolor = ft.colors.RED
             hand.index.scale = 1
+            page.update()
         else:
             hand.index.bgcolor = ft.colors.GREEN
             hand.index.scale = 0.9
-
             hand.index.scale = animationBounceFactor
-        # -------------------- THUMB ---------------------
-        if stateArray[4] == "0":
-            hand.thumb.bgcolor = ft.colors.RED
-            hand.thumb.scale = 1
-        else:
-            hand.thumb.bgcolor = ft.colors.GREEN
-            hand.thumb.scale = 0.9
+            page.update()
 
-            hand.thumb.scale = animationBounceFactor
-        # -------
+    keyboardTest = ft.Container(content=ft.TextField(
+        label = "Keyboard Test Field",
+        value = "",
+        border_color = "transparent",
+        content_padding= 5,
+        on_change=lambda _: kb_test_change(),
+    ),width=230)
+    def kb_test_change():
+        keyboardTest.content.border_color=ft.colors.with_opacity(0.5, ft.colors.GREY_100)
+        page.update()
+        time.sleep(0.05)
+        keyboardTest.content.border_color=ft.colors.with_opacity(0, ft.colors.LIGHT_GREEN_ACCENT_700)
+        page.update()
+
+    theme_switch = ft.Switch(label="Light theme", on_change=lambda _: theme_changed())
+    def theme_changed():
+        page.theme_mode = (
+            ft.ThemeMode.DARK
+            if page.theme_mode == ft.ThemeMode.LIGHT
+            else ft.ThemeMode.LIGHT
+        )
+        theme_switch.label = (
+            "Light theme" if page.theme_mode == ft.ThemeMode.LIGHT else "Dark theme"
+        )
         page.update()
 
     # Theme Restraints
     page.title = "GraceNote Interface Companion"
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
 
-    # page.window_frameless = False
+    page.window_frameless = False
     #page.window_min_height = 350
     page.window_max_height = 300
     #page.window_min_width = 500
-    page.window_max_width = 550
-    page.window_width = 550
+    page.window_max_width = 500
+    page.window_width = 500
     page.window_maximizable = False
     page.window_center()
     page.padding = 0
@@ -142,7 +160,7 @@ def main(page: ft.Page):
     # page.window_always_on_top = True
     # page.show_semantics_debugger = True 
 
-    page.window_opacity = 0.95
+    page.window_opacity = 0.90
     page.window_title_bar_hidden = True
 
     # Try Catch-Setup
@@ -170,7 +188,7 @@ def main(page: ft.Page):
                     width=page.window_width,
                     #bgcolor="Brown",
                     content=ft.Row([
-                        ft.Text("\t\tGraceNote Interface Companion", size=15, text_align="center"),
+                        ft.Text("\t\tGraceNote Interface Companion", size=15, text_align=ft.alignment.center),
                         ft.Container(
                             ft.IconButton(ft.icons.CLOSE, icon_color="white", on_click=lambda _: page.window_close()),
                         )
@@ -189,36 +207,39 @@ def main(page: ft.Page):
                 ft.Row(
                     [
                         # Left Menu Container
-                        ft.Column([lmc, ft.ElevatedButton("Send Input", icon= ft.icons.UPLOAD_ROUNDED, on_click=lambda _: write_config())]),
+                        lmc,
 
                         # Center Container
                         ft.Container(
                             ft.Column([
                                 # Hand Widgets
-                                ft.Row([
-                                    hand.pinkyBind, hand.ringBind, hand.middleBind, hand.indexBind, hand.thumbBind
-                                ]),
                                 ft.Row(
-                                    [hand.pinky, hand.ring, hand.middle, hand.index, hand.thumb],
-                                    alignment = ft.CrossAxisAlignment.CENTER,
+                                    [hand.pinkyBind, hand.ringBind, hand.middleBind, hand.indexBind], 
+                                    alignment=ft.MainAxisAlignment.CENTER,
                                 ),
-                                hand.keyboardTest,
                                 ft.Row(
-                                    [
-                                        ft.ElevatedButton("Clear", icon=ft.icons.DELETE_OUTLINE, on_click=lambda _: keyboardTestClear()),
-                                        ft.ElevatedButton("Find Ports", icon=ft.icons.RESTART_ALT_ROUNDED, on_click=lambda _: port_update()),
-                                    ],
-                                    alignment=ft.MainAxisAlignment.CENTER
-                                )
-                                
+                                    [hand.pinky, hand.ring, hand.middle, hand.index,],
+                                    alignment=ft.MainAxisAlignment.CENTER,
+                                ),
+                                keyboardTest,
                             ])
                         ),
-
-                        # Right Menu Container / Unused 
-                        ft.Container()
                     ],
                     alignment=ft.MainAxisAlignment.CENTER,
-                )
+                ),
+                ft.Row(
+                    [
+                        ft.ElevatedButton(content=ft.Row([ft.Icon(ft.icons.RESTART_ALT_ROUNDED, size=20), ft.Text("Find Ports", size = 12)]), 
+                            on_click=lambda _: port_update()
+                        ),
+                        ft.ElevatedButton(content=ft.Row([ft.Icon(ft.icons.DELETE_OUTLINE,size=20), ft.Text("Clear", size = 12)]), 
+                            on_click=lambda _: keyboardTestClear()
+                        ),
+                        ft.ElevatedButton(content=ft.Row([ft.Icon(ft.icons.UPLOAD_ROUNDED, size=20), ft.Text("Send Input", size=12),]),    
+                            on_click=lambda _: write_config() )
+                    ],
+                    alignment=ft.MainAxisAlignment.CENTER
+                ),
             ],
             ft.MainAxisAlignment.START
         )
@@ -245,8 +266,8 @@ def main(page: ft.Page):
 
         else:
             stateArray = ["0"] * global_var.total_buttons
-            # updateButtons(stateArray)
-            print("Not Reading")
+            updateButtons(stateArray)
+            # print("Not Reading")
             time.sleep(0.5)
 
 # -------------------- Main Program --------------------

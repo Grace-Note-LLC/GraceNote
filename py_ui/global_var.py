@@ -7,4 +7,4 @@ port_found = False
 
 baud_rate = 2000000
 
-total_buttons = 3
+total_buttons = 4

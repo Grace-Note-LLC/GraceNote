@@ -53,10 +53,8 @@ def assign_port(port):
     print(f"Connect Attempt: {port}")
     try:
         global_var.ser = serial.Serial(port, global_var.baud_rate)
-        
         global_var.reader = serialtest.ReadLine(global_var.ser)
         print("N!O!OO!")
-        # global_var.out = global_var.reader.readline()
         print("AHAHHA")
         global_var.port_found = True
         
