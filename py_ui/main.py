@@ -197,7 +197,7 @@ def main(page: ft.Page):
                                 ft.IconButton(ft.icons.MINIMIZE, on_click=lambda _: minimize()),
                             ),
                             ft.Container(
-                                ft.IconButton(ft.icons.icons.DARK_MODE_OUTLINED, on_click=lambda _: theme_changed()),
+                                ft.IconButton(ft.icons.DARK_MODE_OUTLINED, on_click=lambda _: theme_changed()),
                             ),
                             ft.Container(
                                 ft.IconButton(ft.icons.CLOSE, on_click=lambda _: page.window_close()),
