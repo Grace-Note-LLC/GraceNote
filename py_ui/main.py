@@ -42,15 +42,14 @@ def main(page: ft.Page):
 
     def port_update():
         print("Updating Ports")
-        num_ports_before = serial.tools.list_ports.comports()
-        lmc.content = portdisplays.list_ports()
-        num_ports_after = serial.tools.list_ports.comports()
-        if num_ports_after > num_ports_before:
-            portdisplays.display_box.content = "Port Found"
-            portdisplays.display_box.bgcolor = ft.colors.GREEN
-            global_var.port_found = True
-        elif num_ports_after == num_ports_before:
+        num_ports_before = 0
+        num_ports_after = 0
+        for _, desc, _ in sorted(serial.tools.list_ports.comports()):
+            if ("Bluetooth" not in "{}".format(desc)):
+                num_ports_after += 1
+        if num_ports_after <= num_ports_before and num_ports_after < 1:
             no_ports_dialog()
+        lmc.content = portdisplays.list_ports()
         page.update()
 
     def write_config():
