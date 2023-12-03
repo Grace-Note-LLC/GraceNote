@@ -4,8 +4,6 @@
 # Main Imports
 import flet as ft
 import serial
-import serialtest
-import pyautogui as kb
 import time
 
 # Helper Imports
@@ -30,6 +28,17 @@ def main(page: ft.Page):
             hand.keyboardTest.value = ""
         page.update()
     
+    no_ports_dialog_box = ft.AlertDialog(
+        content=ft.Text("\t\t\t\t\tNo Ports Available", size=15, text_align=ft.MainAxisAlignment.CENTER),
+        actions_alignment=ft.alignment.center,
+        content_padding=20,
+        inset_padding=ft.padding.symmetric(vertical=0, horizontal=0),
+    )
+    def no_ports_dialog():
+        page.dialog = no_ports_dialog_box
+        no_ports_dialog_box.open = True
+        page.update()
+
     def port_update():
         print("Updating Ports")
         num_ports_before = serial.tools.list_ports.comports()
@@ -39,23 +48,29 @@ def main(page: ft.Page):
             portdisplays.display_box.content = "Port Found"
             portdisplays.display_box.bgcolor = ft.colors.GREEN
             global_var.port_found = True
+        elif num_ports_after == num_ports_before:
+            no_ports_dialog()
         page.update()
 
-
     def write_config():
-        header = "PREPARE DATA TRANSFER"
-        footer = "DATA TRANSFER COMPLETE"
         payload = "".join([hand.pinkyBind.value, hand.ringBind.value, hand.middleBind.value, hand.indexBind.value, hand.thumbBind.value])
 
-        global_var.ser.reset_output_buffer()
-
-        print(header)
+        try:
+            global_var.ser.reset_output_buffer()
+        except Exception as e:
+            print(f"Sent data to nonexistent port: {e}")
+            sent_nothing_dialog()
         print(f"PAYLOAD SENDING: {payload}")
         global_var.ser.write(payload.encode('utf-8'))
         time.sleep(0.1)
-
-        print(footer)
         global_var.ser.flush()
+
+    sent_nothing_dialog_box = ft.AlertDialog(title=ft.Text("Sent data to nonexistent port", size=15))
+    def sent_nothing_dialog():
+        page.dialog = sent_nothing_dialog_box
+        sent_nothing_dialog_box.open = True
+        page.update()
+
 
     def updateButtons(stateArray):
         animationBounceFactor = 0.5
@@ -64,7 +79,6 @@ def main(page: ft.Page):
             hand.pinky.bgcolor = ft.colors.RED
             hand.pinky.scale = 1
         else:
-            kb.press(hand.pinkyBind.value)
             hand.pinky.bgcolor = ft.colors.GREEN
             hand.pinky.scale = 0.9
 
@@ -74,7 +88,6 @@ def main(page: ft.Page):
             hand.ring.bgcolor = ft.colors.RED
             hand.ring.scale = 1
         else:
-            kb.press(hand.ringBind.value)
             hand.ring.bgcolor = ft.colors.GREEN
             hand.ring.scale = 0.9
 
@@ -84,32 +97,29 @@ def main(page: ft.Page):
             hand.middle.bgcolor = ft.colors.RED
             hand.middle.scale = 1
         else:
-            kb.press(hand.middleBind.value)
             hand.middle.bgcolor = ft.colors.GREEN
             hand.middle.scale = 0.9
 
             hand.middle.scale = animationBounceFactor
-        # # -------------------- INDEX ---------------------
-        # if stateArray[3] == "0":
-        #     hand.index.bgcolor = ft.colors.RED
-        #     hand.index.scale = 1
-        # else:
-        #     kb.write(hand.indexBind.value)
-        #     hand.index.bgcolor = ft.colors.GREEN
-        #     hand.index.scale = 0.9
+        # -------------------- INDEX ---------------------
+        if stateArray[3] == "0":
+            hand.index.bgcolor = ft.colors.RED
+            hand.index.scale = 1
+        else:
+            hand.index.bgcolor = ft.colors.GREEN
+            hand.index.scale = 0.9
 
-        #     hand.index.scale = animationBounceFactor
-        # # -------------------- THUMB ---------------------
-        # if stateArray[4] == "0":
-        #     hand.thumb.bgcolor = ft.colors.RED
-        #     hand.thumb.scale = 1
-        # else:
-        #     kb.write(hand.thumbBind.value)
-        #     hand.thumb.bgcolor = ft.colors.GREEN
-        #     hand.thumb.scale = 0.9
+            hand.index.scale = animationBounceFactor
+        # -------------------- THUMB ---------------------
+        if stateArray[4] == "0":
+            hand.thumb.bgcolor = ft.colors.RED
+            hand.thumb.scale = 1
+        else:
+            hand.thumb.bgcolor = ft.colors.GREEN
+            hand.thumb.scale = 0.9
 
-        #     hand.thumb.scale = animationBounceFactor
-        # # -------
+            hand.thumb.scale = animationBounceFactor
+        # -------
         page.update()
 
     # Theme Restraints
@@ -172,7 +182,6 @@ def main(page: ft.Page):
         ]),
     )
 
-
     lmc = ft.Container(portdisplays.list_ports())
     page.add(
         ft.Column(
@@ -217,9 +226,7 @@ def main(page: ft.Page):
     
     while True:
         if (global_var.port_found):
-            # print("Reading")
-            # time.sleep(0.1)b
-             
+            
             # Needs exception handling when device is pulled
             line = None
             try:
@@ -229,12 +236,12 @@ def main(page: ft.Page):
                 global_var.port_found = False
                 continue
 
-            # if str(prev) != line:
-            #     stateArray = list(str(global_var.reader.readline()))[12:12 + global_var.total_buttons]
-            #     prev = global_var.reader.readline()
-            #     # time.sleep(0.1)
-            #     updateButtons(stateArray)
-            #     print(stateArray)
+            if str(prev) != line:
+                stateArray = list(str(global_var.reader.readline()))[12:12 + global_var.total_buttons]
+                prev = global_var.reader.readline()
+                # time.sleep(0.1)
+                updateButtons(stateArray)
+                print(stateArray)
 
         else:
             stateArray = ["0"] * global_var.total_buttons
