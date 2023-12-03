@@ -53,7 +53,7 @@ def main(page: ft.Page):
         page.update()
 
     def write_config():
-        payload = "".join([hand.pinkyBind.value, "~", hand.ringBind.value, "~", hand.middleBind.value," ~", hand.indexBind.value])
+        payload = "".join([hand.pinkyBind.value, "~", hand.ringBind.value, "~", hand.middleBind.value, "~", hand.indexBind.value])
         try:
             global_var.ser.reset_output_buffer()
         except Exception as e:
@@ -196,11 +196,8 @@ def main(page: ft.Page):
                             ft.Container(
                                 ft.IconButton(ft.icons.MINIMIZE, on_click=lambda _: minimize()),
                             ),
-                            # ft.Container(
-                            #     ft.IconButton(ft.icons.SETTINGS, icon_color="white", on_click=lambda _: settingsPage.settingsPage()),
-                            # ),
                             ft.Container(
-                                ft.IconButton(ft.icons.SETTINGS, on_click=lambda _: theme_changed()),
+                                ft.IconButton(ft.icons.icons.DARK_MODE_OUTLINED, on_click=lambda _: theme_changed()),
                             ),
                             ft.Container(
                                 ft.IconButton(ft.icons.CLOSE, on_click=lambda _: page.window_close()),

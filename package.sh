@@ -1,2 +1,2 @@
 clear
-flet pack ./qp-fall23/py_ui/main.py --name GraceNote --icon ./qp-fall23/py_ui/assets/hand-removebg-preview.ico --product-name GraceNote --product-version "1.0.1" --file-description "A keyboard software companion"
+flet pack ./main.py --name GraceNote --icon ./assets/hand-removebg-preview.ico --product-name GraceNote --product-version "1.0.5" --file-description "A keyboard companion"
