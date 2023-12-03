@@ -14,7 +14,7 @@ pinky = ft.Container(
     width = fingerWidth,
     height = fingerHeight,
     alignment = ft.alignment.center,
-    content = ft.Text("Pinky"),
+    content = ft.Text("Left",text_align=ft.alignment.center),
     bgcolor = ft.colors.RED,
     scale=ft.transform.Scale(scale=1),
     animate_scale=ft.animation.Animation(600, ft.AnimationCurve.BOUNCE_OUT),
@@ -24,38 +24,30 @@ ring = ft.Container(
     width = fingerWidth,
     height = fingerHeight,
     alignment = ft.alignment.center,
-    content = ft.Text("Ring"),
-    bgcolor = baseColor,
+    content = ft.Text("Mid\nLeft",text_align=ft.alignment.center),
+    bgcolor = ft.colors.RED,
+    scale=ft.transform.Scale(scale=1),
+    animate_scale=ft.animation.Animation(600, ft.AnimationCurve.BOUNCE_OUT),
 )
 
 middle = ft.Container(
     width = fingerWidth,
     height = fingerHeight,
     alignment = ft.alignment.center,
-    content = ft.Text("Middle"),
-    bgcolor = baseColor,
+    content = ft.Text("Mid\nRight",text_align=ft.alignment.center),
+    bgcolor = ft.colors.RED,
+    scale=ft.transform.Scale(scale=1),
+    animate_scale=ft.animation.Animation(600, ft.AnimationCurve.BOUNCE_OUT),
 )
 
 index = ft.Container(
     width = fingerWidth,
     height = fingerHeight,
     alignment = ft.alignment.center,
-    content = ft.Text("Index"),
-    bgcolor = baseColor,
-)
-
-thumb = ft.Container(
-    width = fingerWidth,
-    height = fingerHeight,
-    alignment = ft.alignment.center,
-    content = ft.Text("Thumb"),
-    bgcolor = baseColor,
-)
-
-# Clear Button Widget
-keyboardTest = ft.TextField(
-    label = "Keyboard Test Field",
-    value = ""
+    content = ft.Text("Right",text_align=ft.alignment.center),
+    bgcolor = ft.colors.RED,
+    scale=ft.transform.Scale(scale=1),
+    animate_scale=ft.animation.Animation(600, ft.AnimationCurve.BOUNCE_OUT),
 )
 
 # Keybind Input Fields
