@@ -19,6 +19,15 @@ Expected User Workflow:
 4. User is able to play the game normally, using the device as input instead of the default/intended instrument.
 5. Optionally, the user can open the interface app, which will show which pads are being pressed and potentially allow for configuration settings.
 
+Compatibility:
+1. Windows
+2. Linux
+3. Android Devices 4.4+
+4. macOS
+5. Smart TVs
+6. Android Watches
+7. Refrigerators (YES REALLY!)
+
 ## Ideas for future implementation:
 - Make our own rhythm game built around the device
   - This would take a lot of effort, and should only be done if we are confident that we can make something polished.
