@@ -1,55 +1,30 @@
-# \<insert project name> - QP Fall 2023 Team 6 Spec Sheet
+# Grace Note - QP Fall 2023 Team 6 Spec Sheet
 
-## High-level Concept
-We will be making a serial device that is intended for use in musical applications. Similar to a Guitar Hero guitar, or an Osu tablet/pen, we are hoping to make a device that can bring a fun, handy new tool to the genre of rhythm games. The device will have 5 independent "pads", with one for each finger. When the user touches one of their fingers to a pad, it will send some serial message to the computer which can be interpreted as a button press. This could be applied directly to rhythm games such as _Osu! Mania_ or _Guitar Hero_, or it could be treated as if it were its own instrument - the choice is up to the user!
+## High-level Explanation
+Grace Note is a USB serial device that is intended for use in musical applications, built off of the ESP32-S2 microprocessor. Similar to a Guitar Hero guitar, or an Osu tablet/pen, we are hoping to make a device that can bring a fun, handy new tool to the genre of rhythm games. The physical device has 4 independent "pads", each intended for use with 1 finger. When the user touches one of their fingers to a pad, it will send a key press (like from a keyboard) to the computer. The exact key that is sent can be configured by the user with our multi-platform companion app (created using Flutter) on the device of their choosing. This could be applied directly to rhythm games such as _Osu! Mania_ or _Guitar Hero_, or it could be treated as if it were its own instrument - the choice is up to the user!
 
 ## Technical Details
 
 ### Hardware:
-The primary interaction between the user and the device will be via individual capacitive touch sensors (or soft potentiometers, we haven't entirely decided yet). When the user makes contact with one of the sensors, the signal will be picked up by an Arduino (or other MCU, we haven't decided yet) which will then encode the signal into some number to be passed over the serial connection and then interpreted by the software.
-
-#### Other ideas that we could choose to implement:
-- Make our own board that integrates an MCU (as opposed to buying an off the shelf development board like an Arduino Uno)
-  - We need to account for the factory's shipping and production time (given that our budget is around $50 max)
-- Make the device work wirelessly
-  - This would likely introduce significant latency issues, especially because the intended application is for rhythm games. Therefore, if we were to do this we would not use Bluetooth but instead send an analog signal via a wireless transmitter/receiver pair (like what real wireless guitars use).
+The primary interaction between the user and the device will be via individual capacitive touch sensors. When the user makes contact with one of the sensors, the signal will be picked up by an ESP32-S2 which will then encode the signal into some number to be passed over the serial connection and then interpreted by the software.
 
 ### Software:
 
-At the very least, we would like to make our device work as an "instrument" in multiple rhythm games (e.g. Osu! mania and Guitar Hero). Since this is a relatively small scope, it would also be great to have an app that works as an interface for the device, allowing the user to visualize all the connections and ensure everything is working as expected. Perhaps we could add customization/configuration settings, so that the app would function similar to something like Razer Synapse. This will done in a Flutter app, so that it can work on both mobile and PC devices.
+In addition to the physical device, we made a companion app that allows users to connect it to their computer and configure which keys the touch sensors correspond to when pressed. This was accomplished using Flet, a Python wrapper for Flutter. This app is comparable to something like Razer Synapse, which allows Razer product users to configure their hardware devices and test them out.
 
-If possible, the software should make it so that the user workflow is as simple as the following:
-
+Expected User Workflow:
 1. User plugs in device
-  - Needs connection verification screen -> settings
-  - settings w/ right/left handed mode
-  - should check verification every application boot up.
 2. User opens rhythm game (e.g. Osu! mania)
-  - cool load up screen w/ logo, could async device verification process from logo
 3. User selects some setting in the game to replace the default input with our device
-  - side bar menu with (ideally want something sleek, clean)
-    - side bar changes size on hover
-    - center page with display info, change according to side bar menu.
-    - about info
-    - game menu
 4. User is able to play the game normally, using the device as input instead of the default/intended instrument.
-  - need to design games (similar to osu! mania?)
-  - design tracks -> game engine required to be built (C/C++/Java?)
-    - https://github.com/XTXTMTXTX/SIMPLE-HTML5-Music-Game
-    - https://github.com/hndada/gosu
-    - https://github.com/stepmania/stepmania
-    - https://github.com/etternagame/etterna
-    - https://github.com/MichaelKim/Tap-Tap-Revolution
-    - https://github.com/DavidCWQ/VG101_RhythmGame
-    - https://github.com/cuong0993/flutter-rhythm (IMPORTANT)
-    - scratch is 10x harder (no clue how to do this + have a flutter wrapper over it)
-  - use as piano/keyboard -> read input stream, stateful home page -> play music from computer
-    - https://www.reddit.com/r/gamedev/comments/10cjgza/which_audio_library_c_would_you_recommend_for_a/
-  - need to upload variety of sounds (where to find?) -> menu to select instrument to play -> combine with game?
 5. Optionally, the user can open the interface app, which will show which pads are being pressed and potentially allow for configuration settings.
 
-#### Other implementation ideas:
+## Ideas for future implementation:
 - Make our own rhythm game built around the device
   - This would take a lot of effort, and should only be done if we are confident that we can make something polished.
   - A very simple alternative to this would be to have a reaction time game that, after a random amount of time, will display a pad number to press. When the user presses the correct pad, it will show the amount of time that it took for them to press the button.
 - In the interface app, we could have a button to "Test Connection", which would prompt the user to press each button and check internally if the corresponding signal was received properly.
+- Make our own board that integrates an MCU (as opposed to buying an off the shelf development board like an Arduino Uno)
+  - We need to account for the factory's shipping and production time (given that our budget is around $50 max)
+- Make the device work wirelessly
+  - This would likely introduce significant latency issues, especially because the intended application is for rhythm games. Therefore, if we were to do this we would not use Bluetooth but instead send an analog signal via a wireless transmitter/receiver pair (like what real wireless guitars use).
