@@ -4,6 +4,7 @@
 # Main Imports
 import flet as ft
 import serial
+import serial.tools.list_ports
 import time
 import keyboard
 
@@ -49,6 +50,7 @@ def main(page: ft.Page):
             time.sleep(0.1)
             global_var.ser.flush()
             print(f"PAYLOAD SENDING: {payload}")
+            global_var.port_found = True
         except Exception as e:
             print(f"Sent data to nonexistent port: {e}")
             sent_nothing_dialog()
@@ -256,10 +258,16 @@ def main(page: ft.Page):
             
             # Needs exception handling when device is pulled
             try:
-                line = str(global_var.reader.readline())
+                all_ports = [tuple(p) for p in list(serial.tools.list_ports.comports())]
+                current_port = [port for port in all_ports if global_var.ser.name in port ][0]
+                if len(current_port) == 0:
+                    global_var.port_found = False
+    
             except Exception as e:
                 print(f"Device no longer available: {e}")
                 global_var.port_found = False
+            # The above code is very hack-y and needs new logic to fix it
+            # But if it works...it works...
 
             bind_states[0] = not keyboard.is_pressed(hand.pinkyBind.value) 
             bind_states[1] = not keyboard.is_pressed(hand.ringBind.value) 
@@ -273,7 +281,7 @@ def main(page: ft.Page):
         else:
             bind_states = [True] * global_var.total_buttons
             updateButtons(bind_states)
-            # print("Not Reading")
+            print("Not Reading")
             time.sleep(0.5)
 
 # -------------------- Main Program --------------------

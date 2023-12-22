@@ -53,12 +53,13 @@ def assign_port(port):
     print(f"Connect Attempt: {port}")
     try:
         global_var.ser = serial.Serial(port, global_var.baud_rate)
-        global_var.reader = serialtest.ReadLine(global_var.ser)
+        # global_var.reader = serialtest.ReadLine(global_var.ser)
         print("N!O!OO!")
         print("AHAHHA")
         global_var.port_found = True
         
         print(f"Port Found: {global_var.port_found}")
+        global_var.page.update()
 
     except Exception as e:
         print(f"Attempted to Connect to Previous Port: {e}")
