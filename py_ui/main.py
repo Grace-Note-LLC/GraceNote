@@ -1,5 +1,6 @@
 # Main Flet Program
-# Author : pink10000
+# Last Updated      : 12/22/23
+# Authors           : pink10000 3dcantaloupe
 
 # Main Imports
 import flet as ft
@@ -18,28 +19,32 @@ def main(page: ft.Page):
     
     # Setter Methods
 
-    no_ports_dialog_box = ft.AlertDialog(
-        content=ft.Text("\t\t\t\t\tNo Ports Available", size=15, text_align=ft.MainAxisAlignment.CENTER),
-        actions_alignment=ft.alignment.center,
-        content_padding=20,
-        inset_padding=ft.padding.symmetric(vertical=0, horizontal=0),
-    )
-    def no_ports_dialog():
-        page.dialog = no_ports_dialog_box
-        no_ports_dialog_box.open = True
-        page.update()
+    # No longer needed as the serial port is automatically found.
+    # These will be kept if we need to use them for something in the future.
 
-    def port_update():
-        print("Updating Ports")
-        num_ports_before = 0
-        num_ports_after = 0
-        for _, desc, _ in sorted(serial.tools.list_ports.comports()):
-            if ("Bluetooth" not in "{}".format(desc)):
-                num_ports_after += 1
-        if num_ports_after <= num_ports_before and num_ports_after < 1:
-            no_ports_dialog()
-        lmc.content = portdisplays.list_ports()
-        page.update()
+    # no_ports_dialog_box = ft.AlertDialog(
+    #     content=ft.Text("\t\t\t\t\tNo Ports Available", size=15, text_align=ft.MainAxisAlignment.CENTER),
+    #     actions_alignment=ft.alignment.center,
+    #     content_padding=20,
+    #     inset_padding=ft.padding.symmetric(vertical=0, horizontal=0),
+    # )
+
+    # def no_ports_dialog():
+    #     page.dialog = no_ports_dialog_box
+    #     no_ports_dialog_box.open = True
+    #     page.update()
+
+    # def port_update():
+    #     print("Updating Ports")
+    #     num_ports_before = 0
+    #     num_ports_after = 0
+    #     for _, desc, _ in sorted(serial.tools.list_ports.comports()):
+    #         if ("Bluetooth" not in "{}".format(desc)):
+    #             num_ports_after += 1
+    #     if num_ports_after <= num_ports_before and num_ports_after < 1:
+    #         no_ports_dialog()
+    #     lmc.content = portdisplays.list_ports()
+    #     page.update()
 
     def write_config():
         hand.verify_input()
@@ -171,7 +176,7 @@ def main(page: ft.Page):
 
     # Global Serial Variables
     try:
-        global_var.ser = serial.Serial('COM9', global_var.baud_rate)
+        global_var.ser = serial.Serial('COM10', global_var.baud_rate)
         global_var.port_found = True
         print("Port Found Again")
 
@@ -262,8 +267,6 @@ def main(page: ft.Page):
                 current_port = [port for port in all_ports if global_var.ser.name in port ][0]
                 if len(current_port) == 0:
                     global_var.port_found = False
-
-
             except Exception as e:
                 print(f"Device no longer available: {e}")
                 global_var.port_found = False
@@ -274,14 +277,25 @@ def main(page: ft.Page):
             portdisplays.port_status_update()
             portdisplays.list_ports()
 
-            bind_states[0] = False if hand.pinkyBind.value == "" else keyboard.is_pressed(hand.pinkyBind.value) 
-            bind_states[1] = False if hand.ringBind.value == "" else keyboard.is_pressed(hand.ringBind.value) 
-            bind_states[2] = False if hand.middleBind.value == "" else keyboard.is_pressed(hand.middleBind.value)
-            bind_states[3] = False if hand.indexBind.value == "" else keyboard.is_pressed(hand.indexBind.value)
+            # Update the bind_states if bind state (i.e. keybind mappings) is not empty
+            # nor longer than 1 character. Note that it technically shouldn't be possible
+            # for there to be more than one character, but this is just in case your 
+            # computer bugs out. >.>
+            # 
+            # There are literally 4 levels of security, I have no idea how you would bypass
+            # that. 
+            # 1. Keybind calls verify_input() on unfocus
+            # 2. Keybind calls verify_input() on focus
+            # 3. Keyboard libary checks if input is not 1 (see below)
+            # 4. Serial quadruple checks if the input is valid once again before it gets
+            #    sent to the device.
+            #
+            bind_states[0] = False if len(hand.pinkyBind.value) != 1 else keyboard.is_pressed(hand.pinkyBind.value) 
+            bind_states[1] = False if len(hand.ringBind.value) != 1 else keyboard.is_pressed(hand.ringBind.value) 
+            bind_states[2] = False if len(hand.middleBind.value) != 1 else keyboard.is_pressed(hand.middleBind.value)
+            bind_states[3] = False if len(hand.indexBind.value) != 1 else keyboard.is_pressed(hand.indexBind.value)
 
-            # time.sleep(0.1)
             updateButtons(bind_states)
-            # print(bind_states)
 
         else:
             bind_states = [False] * global_var.total_buttons

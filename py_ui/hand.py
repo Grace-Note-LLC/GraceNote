@@ -58,6 +58,7 @@ pinkyBind = ft.TextField(
     text_align = "CENTER",
     value = "d",
     on_focus = lambda _: verify_input(),
+    on_blur = lambda _: verify_input(),
 )
 ringBind = ft.TextField(
     width = fingerWidth,
@@ -65,6 +66,7 @@ ringBind = ft.TextField(
     text_align = "CENTER",
     value = "f",
     on_focus = lambda _: verify_input(),
+    on_blur = lambda _: verify_input(),
 )
 middleBind = ft.TextField(
     width = fingerWidth,
@@ -72,6 +74,7 @@ middleBind = ft.TextField(
     text_align = "CENTER",
     value = "j",
     on_focus = lambda _: verify_input(),
+    on_blur = lambda _: verify_input(),
 )
 indexBind = ft.TextField(
     width = fingerWidth,
@@ -79,6 +82,7 @@ indexBind = ft.TextField(
     text_align = "CENTER",
     value = "k",
     on_focus = lambda _: verify_input(),
+    on_blur = lambda _: verify_input(),
 )
 
 allBinds = [pinkyBind.value, ringBind.value, middleBind.value, indexBind.value]
