@@ -64,7 +64,7 @@ def main(page: ft.Page):
     def updateButtons(bind_states):
         animationBounceFactor = 0.5
         # -------------------- PINKY --------------------
-        if bind_states[0]:
+        if not bind_states[0]:
             hand.pinky.bgcolor = ft.colors.RED
             hand.pinky.scale = 1
             page.update()
@@ -74,7 +74,7 @@ def main(page: ft.Page):
             hand.pinky.scale = animationBounceFactor
             page.update()
         # -------------------- RING ---------------------
-        if bind_states[1]:
+        if not bind_states[1]:
             hand.ring.bgcolor = ft.colors.RED
             hand.ring.scale = 1
             page.update()
@@ -84,7 +84,7 @@ def main(page: ft.Page):
             hand.ring.scale = animationBounceFactor
             page.update()
        # -------------------- MIDDLE ---------------------
-        if bind_states[2]:
+        if not bind_states[2]:
             hand.middle.bgcolor = ft.colors.RED
             hand.middle.scale = 1
             page.update()
@@ -94,7 +94,7 @@ def main(page: ft.Page):
             hand.middle.scale = animationBounceFactor
             page.update()
         # -------------------- INDEX ---------------------
-        if bind_states[3]:
+        if not bind_states[3]:
             hand.index.bgcolor = ft.colors.RED
             hand.index.scale = 1
             page.update()
@@ -239,9 +239,9 @@ def main(page: ft.Page):
                         ft.PopupMenuButton(
                             items=[button for button in hand.preset_list]
                         ),
-                        ft.ElevatedButton(content=ft.Row([ft.Icon(ft.icons.RESTART_ALT_ROUNDED, size=20), ft.Text("Find Ports", size = 12)]), 
-                            on_click=lambda _: port_update()
-                        ),
+                        # ft.ElevatedButton(content=ft.Row([ft.Icon(ft.icons.RESTART_ALT_ROUNDED, size=20), ft.Text("Find Ports", size = 12)]), 
+                        #     on_click=lambda _: port_update()
+                        # ),
                         ft.ElevatedButton(content=ft.Row([ft.Icon(ft.icons.UPLOAD_ROUNDED, size=20), ft.Text("Send Input", size=12),]),    
                             on_click=lambda _: write_config() )
                     ],
@@ -262,25 +262,31 @@ def main(page: ft.Page):
                 current_port = [port for port in all_ports if global_var.ser.name in port ][0]
                 if len(current_port) == 0:
                     global_var.port_found = False
-    
+
+
             except Exception as e:
                 print(f"Device no longer available: {e}")
                 global_var.port_found = False
+            
             # The above code is very hack-y and needs new logic to fix it
             # But if it works...it works...
 
-            bind_states[0] = not keyboard.is_pressed(hand.pinkyBind.value) 
-            bind_states[1] = not keyboard.is_pressed(hand.ringBind.value) 
-            bind_states[2] = not keyboard.is_pressed(hand.middleBind.value)
-            bind_states[3] = not keyboard.is_pressed(hand.indexBind.value)
+            portdisplays.port_status_update()
+            portdisplays.list_ports()
+
+            bind_states[0] = False if hand.pinkyBind.value == "" else keyboard.is_pressed(hand.pinkyBind.value) 
+            bind_states[1] = False if hand.ringBind.value == "" else keyboard.is_pressed(hand.ringBind.value) 
+            bind_states[2] = False if hand.middleBind.value == "" else keyboard.is_pressed(hand.middleBind.value)
+            bind_states[3] = False if hand.indexBind.value == "" else keyboard.is_pressed(hand.indexBind.value)
 
             # time.sleep(0.1)
             updateButtons(bind_states)
             # print(bind_states)
 
         else:
-            bind_states = [True] * global_var.total_buttons
+            bind_states = [False] * global_var.total_buttons
             updateButtons(bind_states)
+            portdisplays.list_ports()
             print("Not Reading")
             time.sleep(0.5)
 

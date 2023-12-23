@@ -6,15 +6,22 @@ import global_var
 import serial.tools.list_ports
 
 display_box = ft.Container(
-    content=ft.Text("No Device Found"), 
+    content=ft.Text("List of Devices"), 
     padding=5,
-    bgcolor=ft.colors.RED,
+    # bgcolor=ft.colors.RED,
     border_radius=3
 )
 port_list_title = ft.Container(
-    content=ft.Text("List of Available Ports"),
-    padding=5,
-    bgcolor=ft.colors.BLUE_900,
+    content=ft.Row(controls=[
+        ft.Text("Available Ports"),
+        ft.Icon(
+            name=ft.icons.RADIO_BUTTON_UNCHECKED,
+            color=ft.colors.RED,
+            size=20,
+        ),
+    ]),
+    padding=1,
+    # bgcolor=ft.colors.RED,
     border_radius=3
 )
 no_ports = ft.Container(
@@ -50,7 +57,7 @@ def list_ports():
 # Assigns the port from a button click
 # The port will be passed as a string!!!
 def assign_port(port):
-    print(f"Connect Attempt: {port}")
+    print(f"\nConnect Attempt: {port}")
     try:
         global_var.ser = serial.Serial(port, global_var.baud_rate)
         # global_var.reader = serialtest.ReadLine(global_var.ser)
@@ -59,8 +66,19 @@ def assign_port(port):
         global_var.port_found = True
         
         print(f"Port Found: {global_var.port_found}")
+        port_list_title.content.content = "Port Connected"
         global_var.page.update()
 
     except Exception as e:
         print(f"Attempted to Connect to Previous Port: {e}")
         list_ports()
+
+    port_status_update()
+
+def port_status_update():
+    if global_var.port_found:
+        port_list_title.content.controls[1].name = ft.icons.RADIO_BUTTON_CHECKED
+        port_list_title.content.controls[1].color = ft.colors.GREEN
+    else:
+        port_list_title.content.controls[1].name = ft.icons.RADIO_BUTTON_UNCHECKED
+        port_list_title.content.controls[1].color = ft.colors.RED
