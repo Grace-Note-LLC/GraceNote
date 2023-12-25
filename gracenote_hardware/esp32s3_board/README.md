@@ -13,9 +13,15 @@
 
 **Board Pictures and Features**
 
-INSERT PICTURE
+![3a_a](https://github.com/pink10000/GraceNote/assets/121917210/44ba6574-d6aa-4486-b847-bab6669a3227)
 
-This is a 3D CAD view of the top of the board taken inside Altium Designer.
+
+Above is a 3D CAD view of the top of the board taken inside Altium Designer.
+
+![aaa](https://github.com/pink10000/GraceNote/assets/121917210/cb3a3fb7-d81b-497a-b8bd-c8bc6c1b8857)
+
+Above is a 3D CAD view of the bottom of the board taken inside Altium Designer.
+
 
 Board Features:
 
@@ -24,3 +30,5 @@ Board Features:
 	- 1x 3.3V Linear Regulator for stepping down the 5V from the USB connection(s) to the logic level used by the MCU.
 	- 2x Micro USB connectors for interfacing with a host machine. One of them is for UART to flash firmware to the chip and monitor serial data, the other is for using the MCU's native USB functionality.
 	- Various LEDs and passive components (Power and TX/RX LEDs, decoupling capacitors, voltage dividers, etc).
+
+Many of the components used in the design do not have any symbols, footprints, or 3D models available in Altium, which is why many of the components in the top view picture appear to be missing. We used the datasheets of these components to develop the symbols and footprints to include in the design. All components were hand assembled to the board.
