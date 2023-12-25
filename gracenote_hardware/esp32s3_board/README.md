@@ -3,6 +3,7 @@
 - This subdirectory contains all documentation related to the custom ESP32S3 board developed for the GraceNote project:
 
 	(i) This README including an explanation as to why we chose the ESP32S3 MCU and how the board works.
+
 	(ii) The 'altium' subdirectory including all files related to the PCB design (schematic files, pcb files, custom symbol and footprint libraries).
 
 **Why we Chose the ESP32S3 Chip**
