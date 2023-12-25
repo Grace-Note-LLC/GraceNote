@@ -14,7 +14,7 @@
 
 **Custom Symbol and Footprint Libraries**
 
-- As previously mentioned, some of the components that were ordered for the board did not have readily available schematic symbols or PCB footprints. Using the datasheets of these components, the 'esp32s3_wroom.PcbLib' and 'esp32s3_wroom.SchLib' files collectively provide:
+- As previously mentioned, some of the components that were ordered for the board did not have readily available schematic symbols or PCB footprints in Altium Designer. Using the datasheets of these components, the 'esp32s3_wroom.PcbLib' and 'esp32s3_wroom.SchLib' files collectively provide:
 
 	(i) Schematic symbol and PCB footprint for TRANS NPN 25V 0.8A SOT23-3, Part Number: KSC3265YMTF
 
@@ -24,7 +24,7 @@
 
 	(iv) Schematic symbol and PCB footprint for TVS DIODE 5VWM 18.6VC SOD523, Part Number: ESD5V0D5-TP
 
-	(v) Schematic symvol and PCB footprint for SWITCH TACTILE SPST-NO 0.05A 16V, Part Number: PTS810 SJK 250 SMTR LFS
+	(v) Schematic symbol and PCB footprint for SWITCH TACTILE SPST-NO 0.05A 16V, Part Number: PTS810 SJK 250 SMTR LFS
 
 	(vi) Schematic symbol and PCB footprint for RES 22.1K OHM 1% 1/10W 0603, Part Number: RC0603FR-1022K1L
 
