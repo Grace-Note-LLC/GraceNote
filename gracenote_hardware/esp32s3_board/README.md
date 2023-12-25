@@ -6,6 +6,8 @@
 
 	(ii) The 'altium' subdirectory including all files related to the PCB design (schematic files, pcb files, custom symbol and footprint libraries).
 
+	(iii) The 'GraceNote_BOMs.csv' file containing the bill of materials for the board.
+
 **Why we Chose the ESP32S3 Chip**
 
 - We chose the ESP32S3 chip for the same reason we originally chose the ATMega328P-AU. We wanted a low cost MCU capable of reading from our capactive touch sensors and communicating with a user's host machine running our software application.
