@@ -26,9 +26,9 @@ Above is a 3D CAD view of the bottom of the board taken inside Altium Designer.
 Board Features:
 
 	- 1x ESP32-S3-WROOM-1U-N8 Microcontroller (top right) for reading data from external capacitive touch sensors and communicating with host machine running our software application.
-	- 1x CP2102N-A02-GQFN28 USB-UART Bridge for converting USB data from the host machine to UART for flashing firmware to the MCU.
-	- 1x 3.3V Linear Regulator for stepping down the 5V from the USB connection(s) to the logic level used by the MCU.
-	- 2x Micro USB connectors for interfacing with a host machine. One of them is for UART to flash firmware to the chip and monitor serial data, the other is for using the MCU's native USB functionality.
+	- 1x CP2102N-A02-GQFN28 USB-UART Bridge (top left) for converting USB data from the host machine to UART for flashing firmware to the MCU.
+	- 1x 3.3V Linear Regulator (middle bottom) for stepping down the 5V from the USB connection(s) to the logic level used by the MCU.
+	- 2x Micro USB connectors (far left on bottom view) for interfacing with a host machine. One of them is for UART to flash firmware to the chip and monitor serial data, the other is for using the MCU's native USB functionality.
 	- Various LEDs and passive components (Power and TX/RX LEDs, decoupling capacitors, voltage dividers, etc).
 
-Many of the components used in the design do not have any symbols, footprints, or 3D models available in Altium, which is why many of the components in the top view picture appear to be missing. We used the datasheets of these components to develop the symbols and footprints to include in the design. All components were hand assembled to the board.
+Many of the components used in the design do not have any symbols, footprints, or 3D models available in Altium, which is why many of the components in the top view picture appear to be missing. We used the datasheets of these components to develop the symbols and footprints to include in the design. All components were hand soldered to the board.
