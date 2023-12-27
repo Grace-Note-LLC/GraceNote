@@ -1,0 +1,44 @@
+ATMEGA328P BOARD,,,,,,,,,,,,
+Item #,Designator,Quantity,Manufacturer,Mfg Part #,Description,Package,Type,Ordered?,Purchased Via,Purchase Date,,
+,,,,,,,,,,,,
+1,"C1, C2, C4, C5, C6, C9, C12, C13, C14, C21, C25",11,KEMET,C0603X104K5RACTU,CAP CER 0.1UF 50V X7R 0603,0402,SMD,Y,PCBWAY,11-24,,
+2,C3,1,YAGEO,CC0402KRX5R6BB475,CAP CER 4.7UF 10V X5R 0402,0402,SMD,Y,PCBWAY,11-24,,
+3,"C7, C8, C15, C16, C22",5,KEMET,C0805X223K5RAC7800,CAP CER 0.022UF 50V X7R 0805,0805,SMD,Y,PCBWAY,11-24,,
+4,"C10, C11, C19, C20, C23",5,YAGEO,CC0402JRNPO9BN200,CAP CER 20PF 50V 5% NP0 0402,0402,SMD,Y,PCBWAY,11-24,,
+5,"C17, C18",2,Murata,GJM0335C1E6R0CB01J,CAP CER 6.0PF 25V NP0 0201,0201,SMD,Y,PCBWAY,11-24,,
+6,C24,1,YAGEO,CC0402KRX5R6BB475,CAP CER 4.7UF 10V X5R 0402,0402,SMD,Y,PCBWAY,11-24,,
+7,"D1, D2, D3, D6, D7, D8",1,Lite-On Inc.,LTST-C191TBKT,LED BLUE CLEAR CHIP SMD,0603,SMD,Y,PCBWAY,11-24,,
+8,"D4, D5, D9, D10, D11",1,Lite-On Inc.,LTST-C191GKT,LED GREEN CLEAR CHIP SMD,0603,SMD,Y,PCBWAY,11-24,,
+9,FB1,1,TDK,MMZ1608S601ATA00,Signal Line Ferrite Bead 600O  @ 100MHz 500mA DCR 350mO SMD 0603,0603,SMD,Y,PCBWAY,11-24,,
+10,J1,1,Molex,1050170001,"Micro-USB B Receptacle, Right Angle, Bottom Mount, Surface Mount, with Solder Tabs, -30 to 85 degC, 5-Pin USB, RoHS, Tape and Reel",Micro USB,SMT,Y,PCBWAY,11-24,,
+11,LED_ONB,1,Broadcom,HSMH-C150,LED RED DIFFUSED CHIP SMD,3216,SMD,Y,PCBWAY,11-24,,
+12,"R1, R2, R6, R10, R13, R14",6,YAGEO,RC0603FR-07330RL,RES 330 OHM 1% 1/10W 0603,0603,SMD,Y,PCBWAY,11-24,,
+13,"R3, R4, R5, R15, R16, R19",6,YAGEO,RC0603FR-0710KL,RES 10K OHM 1% 1/10W 0603,0603,SMD,Y,PCBWAY,11-24,,
+14,"R7, R8, R9, R11, R12, R17, R18, R20, R21, R22",10,YAGEO,RC0603FR-071KL,RES 1K OHM 1% 1/10W 0603,0603,SMD,Y,PCBWAY,11-24,,
+15,"D12,D13",1,Vishay,VLMY1300-GS08,LED YELLOW 0603 SMD,0603,SMD,Y,PCBWAY,11-24,,
+16,"U1, U2, U4, U5, U6",1,Microchip,AT42QT1010,"One-channel Touch Sensor IC with Reset Timer, -40° to +85° C, 6-pin SOT23",6-pin SOT23-6 RoHS compliant,SMD,Y,PCBWAY,11-24,,
+17,U3,1,Microchip,ATMEGA328P-AU,IC MCU 8BIT 32KB FLASH 32TQFP,32A,SMD,Y,PCBWAY,11-24,,
+18,U7,1,FTDI,FT232RL-REEL,IC USB FS SERIAL UART 28 SSOP,28 SSOP,SMD,Y,PCBWAY,11-24,,
+19,Y1,1,TXC Corporation,8Y-16.000MAAV-T,CRYSTAL 16.0000MHZ 8PF SMD,Ceramic,SMD,Y,PCBWAY,11-24,,
+,,,,,,,,,,,,
+ESP32S3 BOARD,,,,,,,,,,,,
+Item #,Designator,Quantity,Manufacturer,Mfg Part #,Description,Package,Type,Ordered?,Purchased Via,Purchase Date,Receive Date,Link
+1,"C1,C4,C6,C7",4,YAGEO,CC0805KRX7R9BB104,CAP CER 0.1UF 50V X7R 0805,0805,SMD,Y - 20,Digikey,20 December 2023,27 December 2023,https://www.digikey.com/en/products/detail/yageo/CC0805KRX7R9BB104/302874
+2,"C2,C3,C5,C8,C9,C10,C11",7,YAGEO,"CC1206MKX5R8BB106
+","CAP CER 10UF 25V X5R 1206
+",1206,SMD,Y - 20,Digikey,20 December 2023,27 December 2023,https://www.digikey.com/en/products/detail/yageo/CC1206MKX5R8BB106/5195405
+3,"D1,D5",2,Diodes Incorporated,1N5819HW-7-F,DIODE SCHOTTKY 40V 1A SOD123,SOD-123,SMD,Y - 10,Digikey,20 December 2023,27 December 2023,https://www.digikey.com/en/products/detail/diodes-incorporated/1N5819HW-7-F/814970
+4,"D2,D3,D4,D6,D7,D8",6,Micro Commercial Co,ESD5V0D5-TP,TVS DIODE 5VWM 18.6VC SOD523,SOD-523,SMD,Y - 10,Digikey,20 December 2023,27 December 2023,https://www.digikey.com/en/products/detail/micro-commercial-co/ESD5V0D5-TP/1776992
+5,"D9, D10, D11",3,Lite On Inc.,LTST-C191KFKT,LED ORANGE CLEAR SMD,0603,SMD,Y - 10,Digikey,20 December 2023,27 December 2023,https://www.digikey.com/en/products/detail/liteon/LTST-C191KFKT/386833
+6,"J1,J2",2,Molex,1050170001,CONN RCPT USB2.0 MICRO B SMD R/A,Micro USB,SMD,Y - 5,Digikey,22 December 2023,,https://www.digikey.com/en/products/detail/molex/1050170001/2350832
+7,"Q1,Q2",2,onsemi,KSC3265YMTF,TRANS NPN 25V 0.8A SOT23-3,SOT-23,SMD,Y - 10,Digikey,20 December 2023,27 December 2023,https://www.digikey.com/en/products/detail/onsemi/KSC3265YMTF/1048192
+8,"R1, R2, R3, R8",4,YAGEO,RC0402FR-0710KL,RES 10K OHM 1% 1/16W 0402,0402,SMD,Y - 10,Digikey,20 December 2023,27 December 2023,https://www.digikey.com/en/products/detail/yageo/RC0402FR-0710KL/726523
+9,"R4, R5, R6, R7",4,YAGEO,RC0402FR-071KL,RES 1K OHM 1% 1/16W 0402,0402,SMD,Y - 10,Digikey,20 December 2023,27 December 2023,https://www.digikey.com/en/products/detail/yageo/RC0402FR-071KL/726513
+10,R9,1,YAGEO,RC0603FR-1022K1L,RES 22.1K OHM 1% 1/10W 0603,0603,SMD,Y - 10,Digikey,20 December 2023,27 December 2023,https://www.digikey.com/en/products/detail/yageo/RC0603FR-1022K1L/13694166
+11,R10,1,YAGEO,RC0603FR-0747K5L,RES 47.5K OHM 1% 1/10W 0603,0603,SMD,Y - 10,Digikey,20 December 2023,27 December 2023,https://www.digikey.com/en/products/detail/yageo/RC0603FR-0747K5L/727255
+12,SW1,1,C&K,PTS810 SJK 250 SMTR LFS,SWITCH TACTILE SPST-NO 0.05A 16V,J-Lead,SMD,Y - 10,Digikey,20 December 2023,27 December 2023,https://www.digikey.com/en/products/detail/c-k/PTS810-SJK-250-SMTR-LFS/4176611
+13,U1,1,Espressif Systems,"ESP32-S3-WROOM-1U-N8
+","RF TXRX MOD BLUETOOTH U.FL SMD
+",41-SMD Module,SMD,Y - 3,Digikey,20 December 2023,27 December 2023,https://www.digikey.com/en/products/detail/espressif-systems/ESP32-S3-WROOM-1U-N8/16162635
+14,U2,1,onsemi,NCV1117ST33T3G,IC REG LINEAR 3.3V 1A SOT223,SOT-223,SMD,Y - 3,Digikey,20 December 2023,27 December 2023,https://www.digikey.com/en/products/detail/onsemi/NCV1117ST33T3G/1483937
+15,U3,1,Silicon Labs,CP2102N-A02-GQFN28,IC USB TO UART BRIDGE QFN28,28-WFQFN Exposed Pad,SMD,Y - 3,Digikey,20 December 2023,27 December 2023,https://www.digikey.com/en/products/detail/silicon-labs/CP2102N-A02-GQFN28/9863477
