@@ -16,12 +16,12 @@
 
 **Board Pictures and Features**
 
-![3a_a](https://github.com/pink10000/GraceNote/assets/121917210/44ba6574-d6aa-4486-b847-bab6669a3227)
+![3a_a](https://github.com/pink10000/GraceNote/assets/121917210/f9c2f3a8-0c66-44c9-9e0b-44a50a75554d)
 
 
 Above is a 3D CAD view of the top of the board taken inside Altium Designer.
 
-![aaa](https://github.com/pink10000/GraceNote/assets/121917210/cb3a3fb7-d81b-497a-b8bd-c8bc6c1b8857)
+![aaa](https://github.com/pink10000/GraceNote/assets/121917210/84de3a79-7e34-4a60-8732-f87869e079a2)
 
 Above is a 3D CAD view of the bottom of the board taken inside Altium Designer.
 
