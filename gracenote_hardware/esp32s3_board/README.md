@@ -6,7 +6,7 @@
 
 	(ii) The 'altium' subdirectory including all files related to the PCB design (schematic files, pcb files, custom symbol and footprint libraries).
 
-	(iii) The 'GraceNote_BOMs.csv' file containing the bill of materials for the board.
+	(iii) The 'GraceNote BOMs - Sheet1.csv' csv file containing the bill of materials for the board.
 
 **Why we Chose the ESP32S3 Chip**
 
