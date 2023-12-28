@@ -1,4 +1,4 @@
-**ESP32 S3 Board**
+**ESP32 S3 Board Subdirectory**
 
 - This subdirectory contains all documentation related to the custom ESP32S3 board developed for the GraceNote project:
 
